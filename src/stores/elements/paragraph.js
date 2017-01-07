@@ -1,8 +1,10 @@
 import { observable } from 'mobx'
 
-import textField, { TextField } from '../fields/text'
-import selectField, { SelectField } from '../fields/select'
+import textField from '../fields/text'
+import selectField from '../fields/select'
 
+import type { SelectField } from '../fields/select'
+import type { TextField } from '../fields/text'
 import type { Position, Size } from '../../types/utils'
 
 const sizes = [
@@ -13,19 +15,19 @@ const sizes = [
 
 export type Paragraph = {
   id: string,
-  type: 'paragraph',
+  type: string,
   position: Position,
   size: Size,
   data: {
     text: TextField,
-    size: SelectField<$Keys<typeof sizes>, Size>
+    size: SelectField<number, Size>
   }
 }
 
 type ParagraphInput = {
   id: string,
   position: Position,
-  size: $Keys<sizes>,
+  size: number,
   text: string
 }
 
@@ -36,6 +38,6 @@ export default ({ id, position, size, text }: ParagraphInput): Paragraph => obse
   type: 'paragraph',
   data: {
     text: textField(text),
-    size: selectField(sizes)
+    size: selectField({ options: sizes, input: size })
   }
 })

@@ -1,4 +1,4 @@
-import { observable, asReference } from 'mbox'
+import { observable, asReference } from 'mobx'
 
 export type Field<T> = {
   type: string,

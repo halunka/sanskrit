@@ -18,12 +18,9 @@ advertStore.elements.push(paragraph({
 }))
 
 export default function Application () {
-  return [
-    (<sidebar key='sidebar'>
-        //<Toolbox elements={elementsStore} />
-    </sidebar>),
-    (<main key='main'>
+  return (
+    <main key='main'>
       <Screen advert={advertStore} />
-    </main>)
-  ]
+    </main>
+  )
 }

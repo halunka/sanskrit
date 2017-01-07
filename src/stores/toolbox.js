@@ -8,7 +8,8 @@ import type { Element } from './element'
 
 export type Toolbox = {
   templates: Array<Template>,
-  elements: Array<Element>,
+  // FIXME: `any` should really be a generic
+  elements: Array<Element<any>>,
 }
 
 export default (): Toolbox => ({
@@ -25,5 +26,6 @@ export default (): Toolbox => ({
         })
       ]
     })
-  ]
+  ],
+  elements: []
 })
