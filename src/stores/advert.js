@@ -8,7 +8,8 @@ import type { Element } from './element'
 
 export type Advert = {
   name: string,
-  template?: Template,
+  // TODO: this should be `template?`
+  template: Template,
   // FIXME: `any` should be some generic
   elements: Array<Element<any>>,
   viewBox: string

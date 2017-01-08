@@ -16,7 +16,7 @@ const sizes = [
 export type Paragraph = {
   id: string,
   type: string,
-  slot: string,
+  slot?: string,
   position: Position,
   size: Size,
   data: {
