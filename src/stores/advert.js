@@ -1,4 +1,5 @@
 import { observable, computed } from 'mobx'
+import R from 'ramda'
 
 import { getViewBox } from '../utils'
 

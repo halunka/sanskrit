@@ -5,7 +5,7 @@ import selectField from '../fields/select'
 
 import type { SelectField } from '../fields/select'
 import type { TextField } from '../fields/text'
-import type { Position, Size } from '../../types/utils'
+import type { Position, Size } from '../../utils'
 
 const sizes = [
   [100, 20],

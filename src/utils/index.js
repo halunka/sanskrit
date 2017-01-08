@@ -1,11 +1,25 @@
 import R from 'ramda'
 
-import type { Size, Position } from '../types/utils.js'
+export type Position = [
+  ?number, // left
+  ?number // top
+]
 
-export const getViewBox = ({ position, size }: { position: Position, size: Size }) => {
-  const left = R.path(['position', 'left'], position)
-  const bottom = R.path(['position', 'bottom'], position)
-  const width = R.path(['position', 'width'], size)
-  const height = R.path(['position', 'height'], size)
+export type Size = [
+  ?number, // width
+  ?number // height
+]
+
+/* Size with all props */
+export type FSize = [
+  number, // width
+  number // height
+]
+
+export const getViewBox = (element: { position: Position, size: Size }) => {
+  const left = R.path(['position', 0], element) || 0
+  const bottom = R.path(['position', 1], element) || 0
+  const width = R.path(['size', 0], element)
+  const height = R.path(['size', 1], element)
   return `${left} ${bottom} ${width} ${height}`
 }

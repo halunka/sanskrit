@@ -10,17 +10,16 @@ const toolboxStore = toolbox()
 // simply use the only available template for now
 const advertStore = advert(toolboxStore.templates[0])
 advertStore.elements.push(paragraph({
+  // $FlowFixMe: definition doesn't contain `uuid()`
   id: uuid(),
   type: 'paragraph',
-  position: [],
+  position: [0, 0],
   size: 0,
   text: ''
 }))
 
-export default function Application () {
-  return (
-    <main key='main'>
-      <Screen advert={advertStore} />
-    </main>
-  )
-}
+export default () => (
+  <main key='main'>
+    <Screen advert={advertStore} />
+  </main>
+)

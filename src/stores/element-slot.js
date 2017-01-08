@@ -1,6 +1,6 @@
 import { observable, asReference } from 'mobx'
 
-import type { Size, Position } from '../types/utils'
+import type { Size, Position } from '../utils'
 
 export type ElementSlot = {
   id: string,

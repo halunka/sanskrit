@@ -1,7 +1,7 @@
 import { observable, asReference } from 'mobx'
 
 import type { Field } from './field'
-import type { Position, Size } from '../types/utils'
+import type { Position, Size } from '../utils'
 
 export type Element<T> = {
   type: string,
