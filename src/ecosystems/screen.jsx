@@ -25,17 +25,17 @@ export default observer(({ advert }: Props) => (
         {advert.template.slots.map((slot) => (
           <svg
             key={slot.id}
-            x={slot.position[0]}
-            y={slot.position[1]}
-            width={slot.size[0]}
-            height={slot.size[1]}
+            x={slot.position.left}
+            y={slot.position.top}
+            width={slot.size.width}
+            height={slot.size.height}
             >
             {advert.elements
               .filter(R.propEq('slot', slot.id))
               .map((element, key) =>
                 React.createElement(
                   elementViews[element.type],
-                  { element, key }
+                  { advert, element, key }
                 ))
             }
           </svg>

@@ -18,13 +18,13 @@ export default (): Toolbox => ({
       // $FlowFixMe: definition doesn't contain `uuid()`
       id: uuid(),
       name: 'simple-immo',
-      size: [ 54, 58 ],
+      size: { width: 54, height: 58 },
       slots: [
         elementSlot({
           // $FlowFixMe: definition doesn't contain `uuid()`
           id: uuid(),
-          size: [ 50, 54 ],
-          position: [ 2, 2 ]
+          size: { width: 50, height: 54 },
+          position: { left: 2, top: 2 }
         })
       ]
     })

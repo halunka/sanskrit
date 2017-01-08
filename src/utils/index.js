@@ -1,30 +1,30 @@
 import R from 'ramda'
 
-export type Position = [
-  ?number, // left
-  ?number // top
-]
+export type Position = {|
+  left?: number,
+  top?: number
+|}
 
-export type FPosition = [
-  number, // left
-  number // top
-]
+export type FPosition = {|
+  left: number,
+  top: number
+|}
 
-export type Size = [
-  ?number, // width
-  ?number // height
-]
+export type Size = {|
+  width?: number,
+  height?: number
+|}
 
 /* Size with all props */
-export type FSize = [
-  number, // width
-  number // height
-]
+export type FSize = {|
+  width: number,
+  height: number
+|}
 
 export const getViewBox = (element: { position: Position, size: Size }) => {
-  const left = R.path(['position', 0], element) || 0
-  const bottom = R.path(['position', 1], element) || 0
-  const width = R.path(['size', 0], element)
-  const height = R.path(['size', 1], element)
-  return `${left} ${bottom} ${width} ${height}`
+  const left = R.path(['position', 'left'], element) || 0
+  const top = R.path(['position', 'top'], element) || 0
+  const width = R.path(['size', 'width'], element)
+  const height = R.path(['size', 'height'], element)
+  return `${left} ${top} ${width} ${height}`
 }

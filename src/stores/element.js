@@ -1,6 +1,5 @@
 import { observable, asReference } from 'mobx'
 
-import type { Field } from './field'
 import type { FPosition, FSize } from '../utils'
 
 export type Element<T> = {

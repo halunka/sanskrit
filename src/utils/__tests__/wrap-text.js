@@ -1,7 +1,7 @@
 // $FlowFixMe: definition doesn't contain `uuid()`
 import test from 'ava'
 
-import { splitWords, isBoundary, wrapText } from '../text-area'
+import { splitWords, isBoundary, wrapText } from '../wrap-text'
 
 test('isBoundary should return wether the given character is a boundary', t => {
   t.true(isBoundary(' '))
