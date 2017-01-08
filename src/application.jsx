@@ -14,8 +14,8 @@ advertStore.elements.push(paragraph({
   id: uuid(),
   slot: advertStore.template.slots[0].id,
   position: [0, 0],
-  size: 0,
-  text: ''
+  width: advertStore.template.size[0],
+  text: 'Veniam deserunt in velit explicabo qui ut error. Numquam ab veritatis molestiae itaque sed quos voluptatem est. Perferendis harum in qui molestias minus soluta. Dignissimos doloremque modi soluta aut consequatur vitae molestias omnis. Fugit repudiandae repellat natus. Culpa vel et eius itaque maxime odit consequatur et.'
 }))
 
 export default () => (

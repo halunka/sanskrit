@@ -1,16 +1,16 @@
 import { observable, asReference } from 'mobx'
 
 import type { Field } from './field'
-import type { Position, Size } from '../utils'
+import type { FPosition, FSize } from '../utils'
 
 export type Element<T> = {
   type: string,
   id: string,
   slot?: string,
   /* position in percentages relative to the element slot */
-  position: Position,
+  position: FPosition,
   /* size in percentages relative to the element slot */
-  size: Size,
+  size: FSize,
   data: T
 }
 

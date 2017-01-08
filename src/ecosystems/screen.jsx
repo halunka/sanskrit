@@ -2,12 +2,15 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import R from 'ramda'
 
-import TextArea from '../atoms/text-area.jsx'
-
+import Paragraph from '../molecules/paragraph.jsx'
 import type { Advert } from '../stores/advert'
 
 type Props = {
   advert: Advert
+}
+
+const elementViews = {
+  paragraph: Paragraph
 }
 
 export default observer(({ advert }: Props) => (
@@ -29,16 +32,11 @@ export default observer(({ advert }: Props) => (
             >
             {advert.elements
               .filter(R.propEq('slot', slot.id))
-              .map((attributes, i) => (
-                // $FlowFixMe: the `children` prop somehow doesn't work
-                <TextArea
-                  position={[0, 0]}
-                  size={slot.size}
-                  key={i}
-                  >
-                  { JSON.stringify(attributes) }
-                </TextArea>
-              ))
+              .map((element, key) =>
+                React.createElement(
+                  elementViews[element.type],
+                  { element, key }
+                ))
             }
           </svg>
         ))}

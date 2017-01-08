@@ -1,12 +1,12 @@
 import { observable, asReference } from 'mobx'
 
-import type { Size } from '../utils'
+import type { FSize } from '../utils'
 import type { ElementSlot } from './element-slot'
 
 export type Template = {
   id: string,
   name: string,
-  size: Size,
+  size: FSize,
   slots: Array<ElementSlot>
 }
 
