@@ -5,6 +5,11 @@ export type Position = [
   ?number // top
 ]
 
+export type FPosition = [
+  number, // left
+  number // top
+]
+
 export type Size = [
   ?number, // width
   ?number // height

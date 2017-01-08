@@ -12,7 +12,7 @@ const advertStore = advert(toolboxStore.templates[0])
 advertStore.elements.push(paragraph({
   // $FlowFixMe: definition doesn't contain `uuid()`
   id: uuid(),
-  type: 'paragraph',
+  slot: advertStore.template.slots[0].id,
   position: [0, 0],
   size: 0,
   text: ''

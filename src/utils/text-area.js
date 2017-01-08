@@ -28,7 +28,7 @@ export const splitWords = (text: string) =>
 // I'm doing now. Then when the user saves the text I'd actually calculate the
 // accurate word wrap by the method described above (w/o caching).
 export const wrapText = (width: number, fontSize: number, text: string) => {
-  const letterSize = 0.42 / fontSize
+  const letterSize = 0.43 / fontSize
   const lettersInALine = Math.round(width / letterSize)
   return splitWords(text).reduce(
     (lines, word, i) =>

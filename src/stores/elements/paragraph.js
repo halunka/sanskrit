@@ -16,6 +16,7 @@ const sizes = [
 export type Paragraph = {
   id: string,
   type: string,
+  slot: string,
   position: Position,
   size: Size,
   data: {
@@ -26,13 +27,15 @@ export type Paragraph = {
 
 type ParagraphInput = {
   id: string,
+  slot: string,
   position: Position,
   size: number,
   text: string
 }
 
-export default ({ id, position, size, text }: ParagraphInput): Paragraph => observable({
+export default ({ id, slot, position, size, text }: ParagraphInput): Paragraph => observable({
   id,
+  slot,
   position,
   size,
   type: 'paragraph',
