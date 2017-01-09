@@ -7,20 +7,10 @@ import mkParagraph from './elements/paragraph'
 import type { Template } from './template'
 import type { Element } from './element'
 
-type ElementParams = {
-  id: string,
-  slot: string
-}
-
-type ElementType<T> = {
-  type: string,
-  create: (params: ElementParams) => Element<T>,
-}
-
 export type Toolbox = {
   templates: Array<Template>,
   // FIXME: `any` should really be a generic
-  elements: Array<ElementType<any>>,
+  elementFactories: { [string]: (slot: string) => Element<any> },
 }
 
 export default (): Toolbox => ({
@@ -40,10 +30,8 @@ export default (): Toolbox => ({
       ]
     })
   ],
-  elements: [
-    {
-      type: 'paragraph',
-      create: mkParagraph
-    }
-  ]
+  /* just because it sound cool... */
+  elementFactories: {
+    paragraph: mkParagraph
+  }
 })

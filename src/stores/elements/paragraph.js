@@ -1,4 +1,5 @@
 import { observable, computed, asReference } from 'mobx'
+import uuid from 'uuid'
 
 import { wrapText } from '../../utils/wrap-text'
 import textField from '../fields/text'
@@ -22,14 +23,9 @@ export type Paragraph = {
   lines: Array<string>
 }
 
-type ParagraphInput = {
-  id: string,
-  slot: string
-}
-
-export default ({ id, slot }: ParagraphInput): Paragraph => {
+export default (slot: string): Paragraph => {
   const paragraph = observable({
-    id: asReference(id),
+    id: asReference(uuid()),
     slot,
     size: {
       autoWidth: true,

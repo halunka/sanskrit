@@ -2,3 +2,12 @@
   border: 1px solid hsl(0, 0%, 40%);
   border-radius: 3px;
 }
+
+.element {
+  display: block;
+  width: 100%;
+}
+
+:global .element-ghost {
+  color: white;
+}

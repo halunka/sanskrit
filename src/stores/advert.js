@@ -22,6 +22,8 @@ export type Advert = {
   template: Template,
   // FIXME: `any` should be some generic
   elements: Array<Element<any>>,
+  /* wether to show a wizard and with what element (its id) */
+  wizard: ?string,
   viewBox: string,
   sizeInPx: FSize,
   addElement: (element: ElementParams<any>) => Advert
@@ -75,6 +77,10 @@ export default (template: Template): Advert => {
           )(advert.elements))
         })
       }
+    }),
+    newElementWizard: action((element: Element) => {
+      advert.addElement(element)
+      advert.wizard = element.id
     })
   })
   template.slots.forEach((slot) => {

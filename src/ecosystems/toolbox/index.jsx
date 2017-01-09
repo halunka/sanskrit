@@ -1,5 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import R from 'ramda'
 
 import Sortable from '../../atoms/sortable'
 import i18n from '../../stores/i18n'
@@ -17,16 +18,17 @@ export default observer(({ advert, toolbox }: Props) => (
   <section>
     <h2>{i18n.t['toolbox.title']}:</h2>
     <Sortable
-      group={{ name: 'toolbox', pull: 'clone', put: false }}
-      sort={false}
-      handle={styles.element}
+      group={{ name: 'elements', pull: 'clone', put: false }}
       wrapperClass={styles.elementList}
       >
-      {toolbox.elements.map((element, i) => (
-        <li className={styles.element} key={i}>
-          {i18n.t[`elements.${element.type}`]}
-        </li>
-      ))}
+      {R.pipe(
+        R.mapObjIndexed((f, type) => (
+          <li className={styles.element} data-type={type} key={type}>
+            {i18n.t[`elements.${type}`]}
+          </li>
+        )),
+        R.values
+      )(toolbox.elementFactories)}
     </Sortable>
   </section>
 ))
