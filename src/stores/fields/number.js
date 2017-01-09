@@ -1,11 +1,12 @@
-import { observable } from 'mobx'
+import field from '../field'
 
 export type NumberField = {
   type: string,
-  value: number
+  value: number,
+  update: (newValue: number) => NumberField
 }
 
-export default (value: number): NumberField => observable({
-  type: 'number',
-  value
+export default (value: number): NumberField => field({
+  value,
+  type: 'number'
 })

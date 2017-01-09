@@ -26,7 +26,9 @@ export type Advert = {
   wizard: ?string,
   viewBox: string,
   sizeInPx: FSize,
-  addElement: (element: ElementParams<any>) => Advert
+  addElement: (element: ElementParams<any>) => Advert,
+  newElementWizard: (element: Element<any>) => Advert,
+  closeWizard: () => Advert
 }
 
 export default (template: Template): Advert => {
@@ -34,6 +36,10 @@ export default (template: Template): Advert => {
     name: '',
     template,
     elements: [],
+    wizard: null,
+    wizardElement: computed(() =>
+      R.find(R.propEq('id', advert.wizard), advert.elements)
+    ),
     viewBox: computed(() =>
       advert.template
         ? getViewBox(advert.template)
@@ -77,10 +83,15 @@ export default (template: Template): Advert => {
           )(advert.elements))
         })
       }
+      return advert
     }),
     newElementWizard: action((element: Element) => {
       advert.addElement(element)
       advert.wizard = element.id
+      return advert
+    }),
+    closeWizard: action(() => {
+      advert.wizard = null
     })
   })
   template.slots.forEach((slot) => {

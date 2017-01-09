@@ -1,0 +1,43 @@
+import React from 'react'
+import { observer } from 'mobx-react'
+import R from 'ramda'
+
+import i18n from '../../stores/i18n'
+import { catchEvent } from '../../utils/dom'
+
+import textField from '../../atoms/text-field'
+import numberField from '../../atoms/number-field'
+import selectField from '../../atoms/select-field'
+
+import type { Element } from '../../stores/element'
+import type { Advert } from '../../stores/advert'
+
+const fields = {
+  text: textField,
+  number: numberField,
+  select: selectField
+}
+
+type Props = {
+  advert: Advert
+}
+
+export default observer(({ advert }: Props) => (
+  <form onSubmit={catchEvent(advert.closeWizard)}>
+    <h2>{i18n.t['wizard.title']}</h2>
+    {R.pipe(
+      R.mapObjIndexed((field, key) => (
+        <fieldset key={key}>
+          {
+            React.createElement(
+              fields[field.type],
+              field
+            )
+        }
+        </fieldset>
+      )),
+      R.values
+    )(advert.wizardElement.data)}
+    <button type='submit'>{i18n.t['save']}</button>
+  </form>
+))

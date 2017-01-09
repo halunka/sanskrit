@@ -1,24 +1,22 @@
-import { observable, computed } from 'mobx'
+import R from 'ramda'
 
-export type SelectField<K, V> = {
+import field from '../field'
+
+export type SelectField<V> = {
   type: 'select',
   value: V,
-  input?: K,
-  options: { [K]: V } | Array<V>
+  data: { [string]: V },
+  update: (newValue: V) => SelectField
 }
 
-type SelectFieldInput<K, V> = {
-  options: { [K]: V } | Array<V>,
-  input?: K
+type SelectFieldInput<V> = {
+  data: { [string]: V },
+  value?: V
 }
 
-export default <K, V>({ options, input }: SelectFieldInput<K, V>): SelectField<K, V> => {
-  const selectField = observable({
-    options,
-    input,
-    type: 'text',
-    value: computed(() => selectField.options[selectField.input])
-  })
-  return selectField
-}
+export default <V>({ data, value }: SelectFieldInput<V>): SelectField<V> => field({
+  data,
+  type: 'text',
+  value: value || R.head(data)
+})
 

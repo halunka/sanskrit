@@ -2,8 +2,8 @@
 
 Super awesome thingy! With pictures! Also SVG!
 
-## Information Architecture
+## TODO
 
-[...]
-* Templates
-* Elements
+* fix text wrapping
+* link fontSize -> lineHeight
+* localStorage for improved development speed
