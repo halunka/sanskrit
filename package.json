@@ -33,6 +33,7 @@
     "flow-typed": "^2.0.0",
     "postcss-loader": "^1.2.1",
     "standard": "^8.6.0",
+    "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "beta",
     "webpack-dev-server": "beta"
@@ -54,7 +55,9 @@
     ]
   },
   "ava": {
-    "require": [ "babel-register" ],
+    "require": [
+      "babel-register"
+    ],
     "babel": "inherit"
   }
 }

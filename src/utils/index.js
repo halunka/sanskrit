@@ -1,19 +1,19 @@
 import R from 'ramda'
 
-export type Position = {|
+export type Position = {
   left?: number,
   top?: number
-|}
+}
 
 export type FPosition = {|
   left: number,
   top: number
 |}
 
-export type Size = {|
+export type Size = {
   width?: number,
   height?: number
-|}
+}
 
 /* Size with all props */
 export type FSize = {|

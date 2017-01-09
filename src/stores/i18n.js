@@ -2,6 +2,10 @@
  * Store containing all translations and the current language
  */
 import { observable, action, computed, extendObservable } from 'mobx'
+import R from 'ramda'
+
+import en from '../data/i18n/en'
+import de from '../data/i18n/de'
 
 export type Language = 'en' | 'de'
 export type Translations = { [Language]: string }
@@ -27,5 +31,12 @@ const i18n: I18n = observable({
   }),
   t: {}
 })
+
+R.mapObjIndexed((v, k) => {
+  i18n.add(k, {
+    en: v,
+    de: de[k]
+  })
+}, en)
 
 export default i18n

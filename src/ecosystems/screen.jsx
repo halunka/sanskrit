@@ -1,8 +1,11 @@
+/* @file Screen
+ * The rendered preview of the advert.
+ */
 import React from 'react'
 import { observer } from 'mobx-react'
 import R from 'ramda'
 
-import Paragraph from '../molecules/paragraph.jsx'
+import Paragraph from '../molecules/paragraph'
 import type { Advert } from '../stores/advert'
 
 type Props = {
@@ -18,6 +21,8 @@ export default observer(({ advert }: Props) => (
   <section>
     { advert.template !== undefined && (
       <svg
+        width={advert.sizeInPx.width}
+        height={advert.sizeInPx.height}
         viewBox={advert.viewBox}
         xmlns='http://www.w3.org/2000/svg'
         xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -30,14 +35,12 @@ export default observer(({ advert }: Props) => (
             width={slot.size.width}
             height={slot.size.height}
             >
-            {advert.elements
-              .filter(R.propEq('slot', slot.id))
-              .map((element, key) =>
-                React.createElement(
-                  elementViews[element.type],
-                  { advert, element, key }
-                ))
-            }
+            {slot.elements.map((element, key) =>
+              React.createElement(
+                elementViews[element.type],
+                { advert, element, key }
+              )
+            )}
           </svg>
         ))}
       </svg>

@@ -23,6 +23,7 @@ export type Advert = {
   // FIXME: `any` should be some generic
   elements: Array<Element<any>>,
   viewBox: string,
+  sizeInPx: FSize,
   addElement: (element: ElementParams<any>) => Advert
 }
 
@@ -31,7 +32,16 @@ export default (template: Template): Advert => {
     name: '',
     template,
     elements: [],
-    viewBox: computed(() => getViewBox(advert.template)),
+    viewBox: computed(() =>
+      advert.template
+        ? getViewBox(advert.template)
+        : undefined
+    ),
+    sizeInPx: computed(() => R.pipe(
+      R.path(['template', 'size']),
+      R.defaultTo(0),
+      R.map(R.multiply(6))
+    )(advert)),
     addElement: action(element => {
       advert.elements.push(element)
       /* if there's a position attribute missing */
@@ -49,6 +59,11 @@ export default (template: Template): Advert => {
           )(advert.elements))
         })
       }
+    })
+  })
+  template.slots.forEach((slot) => {
+    extendObservable(slot, {
+      elements: computed(() => advert.elements.filter(R.propEq('slot', slot.id)))
     })
   })
   return advert
