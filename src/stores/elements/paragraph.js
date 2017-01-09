@@ -24,24 +24,22 @@ export type Paragraph = {
 
 type ParagraphInput = {
   id: string,
-  slot: string,
-  width: number,
-  text: string
+  slot: string
 }
 
-export default ({ id, slot, width, text }: ParagraphInput): Paragraph => {
+export default ({ id, slot }: ParagraphInput): Paragraph => {
   const paragraph = observable({
     id: asReference(id),
     slot,
     size: {
-      width,
+      autoWidth: true,
       height: computed(() => paragraph.data.lineHeight.value * paragraph.lines.length + paragraph.padding * 2)
     },
     position: { left: 0 },
     type: 'paragraph',
     padding: 1,
     data: {
-      text: textField(text),
+      text: textField(''),
       fontSize: numberField(1),
       lineHeight: numberField(1.2)
     },

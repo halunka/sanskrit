@@ -12,7 +12,9 @@ export type FPosition = {|
 
 export type Size = {
   width?: number,
-  height?: number
+  height?: number,
+  autoWidth?: boolean,
+  autoHeight?: boolean
 }
 
 /* Size with all props */

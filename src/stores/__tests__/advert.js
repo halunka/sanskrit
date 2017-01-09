@@ -35,6 +35,15 @@ test('addElement should also float from left to right', t => {
   t.deepEqual(advert.elements[2].position.top, 2)
 })
 
+test('addElement should take use the container\'s dimenons if a size is `-1`', t => {
+  const toolbox = mkToolbox()
+  const advert = mkAdvert(toolbox.templates[0])
+  advert.addElement(newElement({ size: { autoWidth: true, height: 1 }, slot: toolbox.templates[0].slots[0].id }))
+  t.is(advert.elements[0].size.width, 50)
+  advert.addElement(newElement({ size: { width: 1, autoHeight: true }, slot: toolbox.templates[0].slots[0].id }))
+  t.is(advert.elements[1].size.height, 54)
+})
+
 test('sizeInPx should be an adverts size, as defined in the template, in pixels', t => {
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])

@@ -3,15 +3,17 @@ import uuid from 'uuid'
 
 import Screen from '../../ecosystems/screen'
 import Structure from '../../ecosystems/structure'
+import Toolbox from '../../ecosystems/toolbox'
+
 import mkAdvert from '../../stores/advert'
 import mkToolbox from '../../stores/toolbox'
 import mkParagraph from '../../stores/elements/paragraph'
 
 import styles from './styles.css'
 
-const toolboxStore = mkToolbox()
+const toolbox = mkToolbox()
 // simply use the only available template for now
-const advert = mkAdvert(toolboxStore.templates[0])
+const advert = mkAdvert(toolbox.templates[0])
 advert.addElement(mkParagraph({
   // $FlowFixMe: definition doesn't contain `uuid()`
   id: uuid(),
@@ -30,11 +32,12 @@ advert.addElement(mkParagraph({
 
 export default () => (
   <div className={styles.container}>
+    <sidebar className={styles.tools}>
+      <Toolbox toolbox={toolbox} advert={advert} />
+      <Structure advert={advert} />
+    </sidebar>
     <main className={styles.main} key='main'>
       <Screen advert={advert} />
     </main>
-    <sidebar className={styles.structure}>
-      <Structure advert={advert} />
-    </sidebar>
   </div>
 )

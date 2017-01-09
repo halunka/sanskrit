@@ -44,6 +44,22 @@ export default (template: Template): Advert => {
     )(advert)),
     addElement: action(element => {
       advert.elements.push(element)
+      /* if a dimension is set to auto */
+      if (element.size.autoWidth || element.size.autoHeight) {
+        const dimensions = [
+          ...(element.size.autoWidth ? ['width'] : []),
+          ...(element.size.autoHeight ? ['height'] : [])
+        ]
+        /* create computed values for the automatic values */
+        const newSizeProps = dimensions.reduce((m, dimension) =>
+          R.assoc(dimension, computed(() => R.pipe(
+            R.find(R.propEq('id', element.slot)),
+            R.path(['size', dimension])
+          )(advert.template.slots)), m),
+        {})
+        /* extend the size with these automatic values */
+        extendObservable(element.size, newSizeProps)
+      }
       /* if there's a position attribute missing */
       if (element.position.left === undefined || element.position.top === undefined) {
         /* float in the missing direction */

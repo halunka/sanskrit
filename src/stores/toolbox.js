@@ -2,14 +2,25 @@ import uuid from 'uuid'
 
 import template from './template'
 import elementSlot from './element-slot'
+import mkParagraph from './elements/paragraph'
 
 import type { Template } from './template'
 import type { Element } from './element'
 
+type ElementParams = {
+  id: string,
+  slot: string
+}
+
+type ElementType<T> = {
+  type: string,
+  create: (params: ElementParams) => Element<T>,
+}
+
 export type Toolbox = {
   templates: Array<Template>,
   // FIXME: `any` should really be a generic
-  elements: Array<Element<any>>,
+  elements: Array<ElementType<any>>,
 }
 
 export default (): Toolbox => ({
@@ -29,5 +40,10 @@ export default (): Toolbox => ({
       ]
     })
   ],
-  elements: []
+  elements: [
+    {
+      type: 'paragraph',
+      create: mkParagraph
+    }
+  ]
 })
