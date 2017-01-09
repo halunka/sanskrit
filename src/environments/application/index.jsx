@@ -1,9 +1,9 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import Screen from '../../ecosystems/screen'
-import Structure from '../../ecosystems/structure'
-import Toolbox from '../../ecosystems/toolbox'
+import Screen from '../../organisms/screen'
+import Structure from '../../organisms/structure'
+import Toolbox from '../../organisms/toolbox'
 
 import mkAdvert from '../../stores/advert'
 import mkToolbox from '../../stores/toolbox'
