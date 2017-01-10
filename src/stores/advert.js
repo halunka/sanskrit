@@ -1,8 +1,9 @@
-import { observable, computed, extendObservable, action, transaction } from 'mobx'
+import Mobx, { observable, computed, extendObservable, action, transaction, asReference } from 'mobx'
 import R from 'ramda'
 
 import { getViewBox } from '../utils'
 
+import type { Toolbox } from './toolbox'
 import type { Template } from './template'
 import type { Element } from './element'
 import type { Position, FSize } from '../utils'
@@ -29,7 +30,9 @@ export type Advert = {
   addElement: (element: ElementParams<any>, index?: number) => Advert,
   newElementWizard: (element: Element<any>, index: number) => Advert,
   closeWizard: () => Advert,
-  moveElement: (elementId: string, newIndex: number) => ?Advert
+  moveElement: (elementId: string, newIndex: number) => ?Advert,
+  export: () => string,
+  import: (data: string, toolbox: Toolbox) => Advert,
 }
 
 export default (template: Template): Advert => {
@@ -109,7 +112,14 @@ export default (template: Template): Advert => {
         advert.elements.splice(newIndex, 0, element)
       })
       return advert
-    })
+    }),
+    export: asReference(() => JSON.stringify({
+      template: advert.template.id,
+      elements: R.map(R.pipe(
+        Mobx.toJS,
+        R.pick(['id', 'type', 'slot', 'position', 'size', 'data'])
+      ), advert.elements)
+    }))
   })
   template.slots.forEach((slot) => {
     extendObservable(slot, {

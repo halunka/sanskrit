@@ -14,6 +14,7 @@ import styles from './styles.css'
 const toolbox = mkToolbox()
 // simply use the only available template for now
 const advert = mkAdvert(toolbox.templates[0])
+window.advert = advert
 
 export default observer(() => (
   <div className={styles.container}>

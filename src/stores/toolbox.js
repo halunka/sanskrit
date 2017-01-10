@@ -16,14 +16,13 @@ export type Toolbox = {
 export default (): Toolbox => ({
   templates: [
     template({
-      // $FlowFixMe: definition doesn't contain `uuid()`
-      id: uuid(),
+      id: 'b280eee8-a52d-45fd-a909-8bf5883edb31',
       name: 'simple-immo',
       size: { width: 54, height: 58 },
       slots: [
         elementSlot({
           // $FlowFixMe: definition doesn't contain `uuid()`
-          id: uuid(),
+          id: '9fd0dcd9-e67b-41ef-909b-2987673be430',
           size: { width: 50, height: 54 },
           position: { left: 2, top: 2 }
         })
