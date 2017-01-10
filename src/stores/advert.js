@@ -1,4 +1,4 @@
-import { observable, computed, extendObservable, action } from 'mobx'
+import { observable, computed, extendObservable, action, transaction } from 'mobx'
 import R from 'ramda'
 
 import { getViewBox } from '../utils'
@@ -26,9 +26,10 @@ export type Advert = {
   wizard: ?string,
   viewBox: string,
   sizeInPx: FSize,
-  addElement: (element: ElementParams<any>) => Advert,
-  newElementWizard: (element: Element<any>) => Advert,
-  closeWizard: () => Advert
+  addElement: (element: ElementParams<any>, index?: number) => Advert,
+  newElementWizard: (element: Element<any>, index: number) => Advert,
+  closeWizard: () => Advert,
+  moveElement: (elementId: string, newIndex: number) => ?Advert
 }
 
 export default (template: Template): Advert => {
@@ -50,8 +51,12 @@ export default (template: Template): Advert => {
       R.defaultTo(0),
       R.map(R.multiply(6))
     )(advert)),
-    addElement: action(element => {
-      advert.elements.push(element)
+    addElement: action((element, index) => {
+      if (index === undefined) {
+        advert.elements.push(element)
+      } else {
+        advert.elements.splice(index, 0, element)
+      }
       /* if a dimension is set to auto */
       if (element.size.autoWidth || element.size.autoHeight) {
         const dimensions = [
@@ -85,13 +90,25 @@ export default (template: Template): Advert => {
       }
       return advert
     }),
-    newElementWizard: action((element: Element) => {
-      advert.addElement(element)
+    newElementWizard: action((element, index) => {
+      advert.addElement(element, index)
       advert.wizard = element.id
       return advert
     }),
     closeWizard: action(() => {
       advert.wizard = null
+      return advert
+    }),
+    moveElement: action((elementId, newIndex) => {
+      const index = advert.elements.findIndex(R.propEq('id', elementId))
+      /* return false if there's no element with that ID */
+      if (index === -1) return null
+      /* otherwise move the element in the elements array */
+      transaction(() => {
+        const element = advert.elements.splice(index, 1)
+        advert.elements.splice(newIndex, 0, element)
+      })
+      return advert
     })
   })
   template.slots.forEach((slot) => {

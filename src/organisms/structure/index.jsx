@@ -26,19 +26,22 @@ export default observer(({ advert, toolbox }: Props) => (
           wrapperElement='figure'
           element
           group={{ name: 'elements', pull: true, put: true }}
-          onAdd={({ item }) => {
+          onAdd={({ item, newIndex }) => {
             /* get the `type` from `dataset` of the element that was dropped
              * into the slot and pass the slot id to the element factory with
              * that type. then open a wizard with that element
              */
-            advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id))
+            advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id), newIndex)
             /* now remove the item node, since it's no longer needed */
             item.parentNode.removeChild(item)
+          }}
+          onSort={({ item, newIndex }) => {
+            advert.moveElement(item.dataset.id, newIndex)
           }}
           ghostClass='element-ghost'
         >
           {slot.elements.map((element, i) => (
-            <figure className={`${styles.figure} ${styles.element}`} key={i}>
+            <figure className={`${styles.figure} ${styles.element}`} data-id={element.id} key={i}>
               <figcaption>{i18n.t[`elements.${element.type}`]}</figcaption>
             </figure>
           ))}
