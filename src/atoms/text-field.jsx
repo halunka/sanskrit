@@ -4,5 +4,5 @@ import { withValueFromEvent } from '../utils/dom'
 import type { TextField } from '../stores/fields/text'
 
 export default (field: TextField) => (
-  <input type='text' onChange={withValueFromEvent(field.update)} value={field.value} />
+  <textarea type='text' onChange={withValueFromEvent(field.update)} value={field.value} />
 )

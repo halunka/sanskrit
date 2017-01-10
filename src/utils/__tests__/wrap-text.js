@@ -17,4 +17,5 @@ test('splitWords should split a text at every word boundary', t => {
 
 test('wrapText should split text into lines that fit a given width', t => {
   t.deepEqual(wrapText(4.3, 1, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa aaa ', 'dfsdf dfs ', '804jief'])
+  t.deepEqual(wrapText(4.3, 2, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa ', 'aaa ', 'dfsdf ', 'dfs ', '804jief'])
 })
