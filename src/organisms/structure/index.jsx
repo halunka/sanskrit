@@ -41,7 +41,11 @@ export default observer(({ advert, toolbox }: Props) => (
           ghostClass='element-ghost'
         >
           {slot.elements.map((element, i) => (
-            <figure className={`${styles.figure} ${styles.element}`} data-id={element.id} key={i}>
+            <figure
+              className={`${styles.figure} ${styles.element}`}
+              data-id={element.id} key={i}
+              onClick={advert.setWizard(element.id)}
+              >
               <figcaption>{i18n.t[`elements.${element.type}`]}</figcaption>
             </figure>
           ))}

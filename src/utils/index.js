@@ -30,3 +30,5 @@ export const getViewBox = (element: { position: Position, size: Size }) => {
   const height = R.path(['size', 'height'], element)
   return `${left} ${top} ${width} ${height}`
 }
+
+export const withId = id => R.propEq('id', id)

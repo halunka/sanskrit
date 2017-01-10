@@ -8,13 +8,13 @@ import Wizard from '../../organisms/wizard'
 
 import mkAdvert from '../../stores/advert'
 import mkToolbox from '../../stores/toolbox'
+import importAdvert from '../../utils/import'
 
 import styles from './styles.css'
 
 const toolbox = mkToolbox()
 // simply use the only available template for now
 const advert = mkAdvert(toolbox.templates[0])
-window.advert = advert
 
 export default observer(() => (
   <div className={styles.container}>

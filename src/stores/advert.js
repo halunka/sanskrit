@@ -1,9 +1,8 @@
 import Mobx, { observable, computed, extendObservable, action, transaction, asReference } from 'mobx'
 import R from 'ramda'
 
-import { getViewBox } from '../utils'
+import { getViewBox, withId } from '../utils'
 
-import type { Toolbox } from './toolbox'
 import type { Template } from './template'
 import type { Element } from './element'
 import type { Position, FSize } from '../utils'
@@ -30,9 +29,9 @@ export type Advert = {
   addElement: (element: ElementParams<any>, index?: number) => Advert,
   newElementWizard: (element: Element<any>, index: number) => Advert,
   closeWizard: () => Advert,
+  setWizard: (elementId: string) => () => Advert,
   moveElement: (elementId: string, newIndex: number) => ?Advert,
   export: () => string,
-  import: (data: string, toolbox: Toolbox) => Advert,
 }
 
 export default (template: Template): Advert => {
@@ -42,7 +41,7 @@ export default (template: Template): Advert => {
     elements: [],
     wizard: null,
     wizardElement: computed(() =>
-      R.find(R.propEq('id', advert.wizard), advert.elements)
+      R.find(withId(advert.wizard), advert.elements)
     ),
     viewBox: computed(() =>
       advert.template
@@ -69,7 +68,7 @@ export default (template: Template): Advert => {
         /* create computed values for the automatic values */
         const newSizeProps = dimensions.reduce((m, dimension) =>
           R.assoc(dimension, computed(() => R.pipe(
-            R.find(R.propEq('id', element.slot)),
+            R.find(withId(element.slot)),
             R.path(['size', dimension])
           )(advert.template.slots)), m),
         {})
@@ -86,7 +85,7 @@ export default (template: Template): Advert => {
           // but correctly interpreted a normal computed property in the tests
           [direction]: computed(() => R.pipe(
             R.filter(R.propEq('slot', element.slot)),
-            R.takeWhile(R.pipe(R.propEq('id', element.id), R.not)),
+            R.takeWhile(R.pipe(withId(element.id), R.not)),
             R.reduce((m, e) => m + e.size[dimension], 0)
           )(advert.elements))
         })
@@ -102,8 +101,13 @@ export default (template: Template): Advert => {
       advert.wizard = null
       return advert
     }),
+    setWizard: action((elementId) => () => {
+      console.log('setting wizard')
+      advert.wizard = elementId
+      return advert
+    }),
     moveElement: action((elementId, newIndex) => {
-      const index = advert.elements.findIndex(R.propEq('id', elementId))
+      const index = advert.elements.findIndex(withId(elementId))
       /* return false if there's no element with that ID */
       if (index === -1) return null
       /* otherwise move the element in the elements array */
@@ -117,7 +121,8 @@ export default (template: Template): Advert => {
       template: advert.template.id,
       elements: R.map(R.pipe(
         Mobx.toJS,
-        R.pick(['id', 'type', 'slot', 'position', 'size', 'data'])
+        R.pick(['type', 'slot', 'data']),
+        (element) => R.assoc('data', R.map(R.prop('value'), element.data), element)
       ), advert.elements)
     }))
   })
