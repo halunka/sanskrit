@@ -6,7 +6,10 @@ export type NumberField = {
   update: (newValue: number) => NumberField
 }
 
-export default (value: number): NumberField => field({
-  value,
-  type: 'number'
-})
+export default (value: number, otherAttributes: Object): NumberField => field(Object.assign(
+  {
+    value,
+    type: 'number'
+  },
+  otherAttributes
+))

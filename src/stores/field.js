@@ -8,12 +8,11 @@ export type Field<T> = {
   update: (newValue: T) => Field<T>
 }
 
-export default <T>({ type, value, data }: Field<T>): Field<T> => {
-  const field = observable({
-    type: asReference(type),
-    update: action((newValue: T) => { field.value = newValue }),
-    value,
-    data
-  })
-  return field
+export default <T>(field: Field<T>): Field<T> => {
+  const fieldElement = observable(Object.assign(
+    { update: action((newValue: T) => { fieldElement.value = newValue }) },
+    field,
+    { type: asReference(field.type) }
+  ))
+  return fieldElement
 }

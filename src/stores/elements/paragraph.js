@@ -1,4 +1,4 @@
-import { observable, computed, asReference } from 'mobx'
+import { observable, computed, asReference, action } from 'mobx'
 import uuid from 'uuid'
 
 import { wrapText } from '../../utils/wrap-text'
@@ -36,7 +36,13 @@ export default (slot: string): Paragraph => {
     padding: 1,
     data: {
       text: textField(''),
-      fontSize: numberField(1),
+      fontSize: numberField(1, {
+        update: action((newValue: number) => {
+          const oldFontSize = paragraph.data.fontSize.value
+          paragraph.data.fontSize.value = newValue
+          paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.data.lineHeight.value
+        })
+      }),
       lineHeight: numberField(1.2)
     },
     lines: computed(() => wrapText(
