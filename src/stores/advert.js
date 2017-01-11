@@ -117,7 +117,7 @@ export default (template: Template): Advert => {
       if (index === -1) return null
       /* otherwise move the element in the elements array */
       transaction(() => {
-        const element = advert.elements.splice(index, 1)
+        const [ element ] = advert.elements.splice(index, 1)
         advert.elements.splice(newIndex, 0, element)
       })
       return advert
