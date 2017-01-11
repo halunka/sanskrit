@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import Application from './environments/application'
+import Application from './views/environments/application'
 
 render(
   <Application />,

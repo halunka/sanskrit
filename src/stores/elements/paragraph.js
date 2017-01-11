@@ -1,23 +1,23 @@
-import { observable, computed, asReference, action } from 'mobx'
+import { computed, action } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
 import { wrapText } from '../../utils/wrap-text'
 import { getValueIfValid } from '../../utils'
-import textField from '../fields/text'
-import numberField from '../fields/number'
+import mkTextField from '../fields/text'
+import mkNumberField from '../fields/number'
 
-import type { TextField } from '../fields/text'
-import type { NumberField } from '../fields/number'
+import type { TextFieldT } from '../fields/text'
+import type { NumberFieldT } from '../fields/number'
 import type { FPosition, FSize } from '../../utils'
 
 export type ParagraphData = {
-  text: TextField,
-  fontSize: NumberField,
-  lineHeight: NumberField,
+  text: TextFieldT,
+  fontSize: NumberFieldT,
+  lineHeight: NumberFieldT,
 }
 
-export type Paragraph = {
+export type ParagraphT = {
   id: string,
   type: string,
   slot?: string,
@@ -43,7 +43,7 @@ const defaultValues = {
   lineHeight: 1.2
 }
 
-export default (slot: string, data?: ParagraphData = {}): Paragraph => {
+export default function mkParagraph (slot: string, data?: ParagraphData = {}): ParagraphT {
   const paragraph = mkElement(
     {
       id: uuid(),
@@ -55,15 +55,15 @@ export default (slot: string, data?: ParagraphData = {}): Paragraph => {
       },
       position: { left: 0 },
       data: {
-        text: textField(data.text || defaultValues.text),
-        fontSize: numberField(data.fontSize || defaultValues.fontSize, {
+        text: mkTextField(data.text || defaultValues.text),
+        fontSize: mkNumberField(data.fontSize || defaultValues.fontSize, {
           update: action((newValue: number) => {
             const oldFontSize = paragraph.fontSize
             paragraph.data.fontSize.value = newValue
             paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.lineHeight
           })
         }),
-        lineHeight: numberField(data.lineHeight || defaultValues.lineHeight)
+        lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight)
       }
     },
     {

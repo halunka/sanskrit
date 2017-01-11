@@ -12,9 +12,7 @@ type Props = {
 }
 
 class Sortable extends Component {
-  constructor (props: Props) {
-    super(props)
-  }
+  props: Props
 
   componentDidMount () {
     const options = R.omit(['children', 'wrapperClass', 'wrapperElement', 'wrapperProps'], this.props)

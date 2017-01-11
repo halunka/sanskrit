@@ -3,7 +3,7 @@ import R from 'ramda'
 
 import type { FPosition, FSize } from '../utils'
 
-export type Element<T> = {
+export type ElementT<T> = {
   type: string,
   id: string,
   slot?: string,
@@ -15,7 +15,7 @@ export type Element<T> = {
   valid: boolean
 }
 
-export default <T>({ type, id, slot, position, size, data }: Element<T>, otherAttributes: object): Element<T> => {
+export default function mkElement <T> ({ type, id, slot, position, size, data }: ElementT<T>, otherAttributes: Object): ElementT<T> {
   const element = observable(Object.assign(
     {
       id: asReference(id),

@@ -2,21 +2,23 @@ import R from 'ramda'
 
 import { validateTruthy, validateNumber, combine } from '../../utils/validate'
 
-import field from '../field'
+import mkField from '../field'
 
-export type NumberField = {
+export type NumberFieldT = {
   type: string,
   value: number,
-  update: (newValue: number) => NumberField
+  update: (newValue: number) => NumberFieldT
 }
 
 const numberValidator = combine(validateTruthy, validateNumber)
 
-export default (value: number, otherAttributes?: Object): NumberField => field(Object.assign(
-  {
-    value,
-    validate: R.path(['validate'], otherAttributes) || numberValidator,
-    type: 'number'
-  },
-  otherAttributes
-))
+export default function mkNumberField (value: number, otherAttributes?: Object): NumberFieldT {
+  return mkField(Object.assign(
+    {
+      value,
+      validate: R.path(['validate'], otherAttributes) || numberValidator,
+      type: 'number'
+    },
+    otherAttributes
+  ))
+}

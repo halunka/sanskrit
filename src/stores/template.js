@@ -10,9 +10,11 @@ export type Template = {
   slots: Array<ElementSlot>
 }
 
-export default ({ id, name, slots, size }: Template): Template => observable({
-  id: asReference(id),
-  name: asReference(name),
-  slots,
-  size
-})
+export default function mkTemplate ({ id, name, slots, size }: Template): Template {
+  return observable({
+    id: asReference(id),
+    name: asReference(name),
+    slots,
+    size
+  })
+}

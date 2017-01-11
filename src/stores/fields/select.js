@@ -1,12 +1,11 @@
 import R from 'ramda'
 
-import field from '../field'
+import mkField from '../field'
 
-export type SelectField<V> = {
-  type: 'select',
-  value: V,
-  data: { [string]: V },
-  update: (newValue: V) => SelectField
+import type { Field } from '../field'
+
+export type SelectFieldT = Field & {
+  type: 'select'
 }
 
 type SelectFieldInput<V> = {
@@ -14,9 +13,10 @@ type SelectFieldInput<V> = {
   value?: V
 }
 
-export default <V>({ data, value }: SelectFieldInput<V>): SelectField<V> => field({
-  data,
-  type: 'text',
-  value: value || R.head(data)
-})
-
+export default function mkSelectField ({ data, value }: SelectFieldInput<V>): SelectFieldT {
+  return mkField({
+    data,
+    type: 'text',
+    value: value || R.head(data)
+  })
+}

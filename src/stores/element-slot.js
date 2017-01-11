@@ -16,8 +16,10 @@ export type ElementSlotParams = {
   size: FSize
 }
 
-export default ({ id, position, size }: ElementSlotParams): ElementSlot => observable({
-  id: asReference(id),
-  position,
-  size
-})
+export default function mkElementSlot ({ id, position, size }: ElementSlotParams): ElementSlot {
+  return observable({
+    id: asReference(id),
+    position,
+    size
+  })
+}

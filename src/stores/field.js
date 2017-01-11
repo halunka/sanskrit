@@ -13,7 +13,7 @@ export type Field<T> = {
   validate?: (value: T) => string | Array<string> | false
 }
 
-export default <T>(field: Field<T>): Field<T> => {
+export default function mkField <T> (field: Field<T>): Field<T> {
   const fieldElement = observable(Object.assign(
     {
       update: action((newValue: T) => {

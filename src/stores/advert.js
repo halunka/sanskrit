@@ -36,7 +36,7 @@ export type Advert = {
   export: () => string
 }
 
-export default (template: Template): Advert => {
+export default function mkAdvert (template: Template): Advert {
   const advert = observable({
     name: '',
     template,
