@@ -1,3 +1,7 @@
+import R from 'ramda'
+
+import { validateTruthy, validateNumber, combine } from '../../utils/validate'
+
 import field from '../field'
 
 export type NumberField = {
@@ -6,9 +10,12 @@ export type NumberField = {
   update: (newValue: number) => NumberField
 }
 
-export default (value: number, otherAttributes: Object): NumberField => field(Object.assign(
+const numberValidator = combine(validateTruthy, validateNumber)
+
+export default (value: number, otherAttributes?: Object): NumberField => field(Object.assign(
   {
     value,
+    validate: R.path(['validate'], otherAttributes) || numberValidator,
     type: 'number'
   },
   otherAttributes

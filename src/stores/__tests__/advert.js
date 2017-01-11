@@ -4,6 +4,7 @@ import uuid from 'uuid'
 import mkAdvert from '../advert'
 import mkToolbox from '../toolbox'
 import mkElement from '../element'
+import mkParagraph from '../elements/paragraph'
 
 const newElement = (x) => mkElement(Object.assign({
   type: '',
@@ -48,4 +49,17 @@ test('sizeInPx should be an adverts size, as defined in the template, in pixels'
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])
   t.deepEqual(advert.sizeInPx, { width: 324, height: 348 })
+})
+
+test('valid should show wether or not all values in an adverts element are valid', t => {
+  const toolbox = mkToolbox()
+  const advert = mkAdvert(toolbox.templates[0])
+  const paragraph = mkParagraph(toolbox.templates[0].slots[0].id)
+  advert.addElement(paragraph)
+  t.false(advert.valid)
+  paragraph.data.fontSize.update('asdf')
+  t.false(advert.valid)
+  paragraph.data.fontSize.update(12)
+  paragraph.data.text.update('asdf')
+  t.true(advert.valid)
 })

@@ -1,11 +1,19 @@
-import field from '../field'
+import R from 'ramda'
 
-export type TextField = {
+import field from '../field'
+import { validateTruthy } from '../../utils/validate'
+
+import type { Field } from '../field'
+
+export type TextField = Field & {
   type: 'text',
-  value: string
 }
 
-export default (value: string): TextField => field({
-  type: 'text',
-  value
-})
+export default (value: string, otherAttributes?: Object): TextField => field(Object.assign(
+  {
+    type: 'text',
+    validate: R.path(['validate'], otherAttributes) || validateTruthy,
+    value
+  },
+  otherAttributes
+))

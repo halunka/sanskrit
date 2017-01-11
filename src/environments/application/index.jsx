@@ -21,7 +21,7 @@ export default observer(() => (
     <sidebar className={styles.tools}>
       <Toolbox toolbox={toolbox} advert={advert} />
       <Structure toolbox={toolbox} advert={advert} />
-      {advert.wizard && (
+      {advert.wizardElement && (
         <Wizard advert={advert} />
       )}
     </sidebar>

@@ -4,5 +4,6 @@
   "toolbox.title": "Toolbox",
   "structure.title": "Structure",
   "templates.simple-immo": "Real Estate Advert",
-  "elements.paragraph": "Text"
+  "elements.paragraph": "Text",
+  "errors.must-exist": "This field may not be empty."
 }

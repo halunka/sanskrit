@@ -1,18 +1,35 @@
-import { observable, asReference, action } from 'mobx'
+import { observable, asReference, action, computed } from 'mobx'
+
+import { errorsToArray } from '../utils/validate'
 
 export type Field<T> = {
   type: string,
   value: T,
   /* data may be used for arbitrary metadata of the field */
   data?: any,
-  update: (newValue: T) => Field<T>
+  errors: Array<string>,
+  valid: boolean,
+  update: (newValue: T) => Field<T>,
+  validate?: (value: T) => string | Array<string> | false
 }
 
 export default <T>(field: Field<T>): Field<T> => {
   const fieldElement = observable(Object.assign(
-    { update: action((newValue: T) => { fieldElement.value = newValue }) },
+    {
+      update: action((newValue: T) => {
+        const errors = fieldElement.validate && fieldElement.validate(newValue)
+        fieldElement.errors.replace(errorsToArray(errors))
+        fieldElement.value = newValue
+        return fieldElement
+      }),
+      errors: [],
+      valid: computed(() => !fieldElement.validate(fieldElement.value))
+    },
     field,
-    { type: asReference(field.type) }
+    {
+      type: asReference(field.type),
+      validate: asReference(field.validate)
+    }
   ))
   return fieldElement
 }

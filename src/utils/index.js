@@ -1,5 +1,7 @@
 import R from 'ramda'
 
+import type { Field } from '../stores/field'
+
 export type Position = {
   left?: number,
   top?: number
@@ -32,3 +34,7 @@ export const getViewBox = (element: { position: Position, size: Size }) => {
 }
 
 export const withId = id => R.propEq('id', id)
+
+export const getValueIfValid = <T>(field: Field<T>, defaultValue: T) => field.valid
+  ? field.value
+  : defaultValue

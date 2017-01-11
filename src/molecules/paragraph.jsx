@@ -11,12 +11,12 @@ type Props = {
 
 export default observer(({ advert, element }: Props) => (
   <text
-    fontSize={element.data.fontSize.value}
+    fontSize={element.fontSize}
     >
     {element.lines.map((line, i) =>
       <tspan
         x={element.position.left}
-        y={element.position.top + element.data.lineHeight.value * (i + 1)}
+        y={element.position.top + element.lineHeight * (i + 1)}
         key={i}
         >
         {line}

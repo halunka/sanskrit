@@ -26,6 +26,7 @@ export type Advert = {
   wizard: ?string,
   viewBox: string,
   sizeInPx: FSize,
+  valid: boolean,
   addElement: (element: ElementParams<any>, index?: number) => Advert,
   newElementWizard: (element: Element<any>, index: number) => Advert,
   closeWizard: () => Advert,
@@ -53,6 +54,10 @@ export default (template: Template): Advert => {
       R.defaultTo(0),
       R.map(R.multiply(6))
     )(advert)),
+    valid: computed(() => R.all(
+      R.prop('valid'),
+      advert.elements
+    )),
     addElement: action((element, index) => {
       if (index === undefined) {
         advert.elements.push(element)

@@ -9,7 +9,6 @@ import textField from '../../atoms/text-field'
 import numberField from '../../atoms/number-field'
 import selectField from '../../atoms/select-field'
 
-import type { Element } from '../../stores/element'
 import type { Advert } from '../../stores/advert'
 
 const fields = {
@@ -33,7 +32,14 @@ export default observer(({ advert }: Props) => (
               fields[field.type],
               field
             )
-        }
+          }
+          {field.errors.length > 0 && (
+            <ul>
+              {field.errors.map((error, i) => (
+                <li key={i}>{i18n.t[error]}</li>
+              ))}
+            </ul>
+          )}
         </fieldset>
       )),
       R.values
