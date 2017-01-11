@@ -107,7 +107,7 @@ export default (template: Template): Advert => {
       advert.wizard = null
       return advert
     }),
-    setWizard: action((elementId) => () => {
+    setWizard: action((elementId) => {
       advert.wizard = elementId
       return advert
     }),

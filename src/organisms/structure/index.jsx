@@ -47,7 +47,7 @@ export default observer(({ advert, toolbox }: Props) => (
             <figure
               className={`${styles.figure} ${styles.element}`}
               data-id={element.id} key={i}
-              onClick={advert.setWizard(element.id)}
+              onClick={() => advert.setWizard(element.id)}
               >
               <figcaption>{i18n.t[`elements.${element.type}`]}</figcaption>
               <button onClick={() => { advert.removeElement(element.id) }}>x</button>
