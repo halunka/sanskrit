@@ -3,14 +3,14 @@ import React from 'react'
 
 import Sortable from '../../atoms/sortable'
 import i18n from '../../../stores/i18n'
-import styles from './styles'
+import styles from './styles.css'
 
 import type { Advert } from '../../../stores/advert'
-import type { Toolbox } from '../../../stores/toolbox'
+import type { ToolboxT } from '../../../stores/toolbox'
 
 type Props = {
   advert: Advert,
-  toolbox: Toolbox
+  toolbox: ToolboxT
 }
 
 export default observer(function Structure ({ advert, toolbox }: Props) {

@@ -9,6 +9,7 @@ import mkParagraph from '../elements/paragraph'
 const newElement = (x) => mkElement(Object.assign({
   type: '',
   id: uuid(),
+  slot: '',
   size: { width: 1, height: 1 },
   position: { left: 0, top: 0 },
   data: {}

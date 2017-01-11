@@ -5,14 +5,20 @@ import R from 'ramda'
 type Props = {
   wrapperClass: string,
   wrapperElement?: string,
-  wrapperProps?: string,
-  sort: boolean,
-  handle: string,
+  wrapperProps?: Object,
   group: { name: string, pull: boolean | string, put: boolean | string },
+  sort?: boolean,
+  sort?: boolean,
+  ghostClass?: string,
+  onAdd?: (item: window.HTMLElement, newIndex: number) => any,
+  onSort?: (item: window.HTMLElement, newIndex: number) => any,
+  onRemove?: (item: window.HTMLElement) => any,
+  children?: React.Component<*>
 }
 
 class Sortable extends Component {
   props: Props
+  sortable: Object
 
   componentDidMount () {
     const options = R.omit(['children', 'wrapperClass', 'wrapperElement', 'wrapperProps'], this.props)

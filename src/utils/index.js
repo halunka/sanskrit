@@ -7,10 +7,10 @@ export type Position = {
   top?: number
 }
 
-export type FPosition = {|
+export type FPosition = {
   left: number,
   top: number
-|}
+}
 
 export type Size = {
   width?: number,
@@ -20,10 +20,10 @@ export type Size = {
 }
 
 /* Size with all props */
-export type FSize = {|
+export type FSize = {
   width: number,
   height: number
-|}
+}
 
 export const getViewBox = (element: { position: Position, size: Size }) => {
   const left = R.path(['position', 'left'], element) || 0
@@ -33,7 +33,7 @@ export const getViewBox = (element: { position: Position, size: Size }) => {
   return `${left} ${top} ${width} ${height}`
 }
 
-export const withId = id => R.propEq('id', id)
+export const withId = (id: string) => R.propEq('id', id)
 
 export const getValueIfValid = <T>(field: Field<T>, defaultValue: T) => field.valid
   ? field.value

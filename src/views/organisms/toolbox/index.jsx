@@ -4,7 +4,7 @@ import R from 'ramda'
 
 import Sortable from '../../atoms/sortable'
 import i18n from '../../../stores/i18n'
-import styles from './styles'
+import styles from './styles.css'
 
 import type { Advert } from '../../../stores/advert'
 import type { ToolboxT } from '../../../stores/toolbox'

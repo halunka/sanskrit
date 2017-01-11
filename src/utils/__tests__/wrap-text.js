@@ -1,4 +1,3 @@
-// $FlowFixMe: definition doesn't contain `uuid()`
 import test from 'ava'
 
 import { splitWords, isBoundary, wrapText } from '../wrap-text'

@@ -1,14 +1,11 @@
 import R from 'ramda'
 
 import { validateTruthy, validateNumber, combine } from '../../utils/validate'
-
 import mkField from '../field'
 
-export type NumberFieldT = {
-  type: string,
-  value: number,
-  update: (newValue: number) => NumberFieldT
-}
+import type { Field } from '../field'
+
+export type NumberFieldT = Field<number>
 
 const numberValidator = combine(validateTruthy, validateNumber)
 

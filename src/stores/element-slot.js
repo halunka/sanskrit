@@ -1,13 +1,13 @@
 import { observable, asReference } from 'mobx'
 
 import type { FSize, FPosition } from '../utils'
-import type { Element } from './element'
+import type { ElementT } from './element'
 
 export type ElementSlot = {
   id: string,
   position: FPosition,
   size: FSize,
-  elements: Array<Element<any>>
+  elements: Array<ElementT<any>>
 }
 
 export type ElementSlotParams = {

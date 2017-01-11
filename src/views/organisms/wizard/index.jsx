@@ -25,7 +25,7 @@ export default observer(function Wizard ({ advert }: Props) {
   return (
     <form onSubmit={catchEvent(advert.closeWizard)}>
       <h2>{i18n.t['wizard.title']}</h2>
-      {R.pipe(
+      {advert.wizardElement && R.pipe(
         R.mapObjIndexed((field, key) => (
           <fieldset key={key}>
             {
@@ -44,6 +44,7 @@ export default observer(function Wizard ({ advert }: Props) {
           </fieldset>
         )),
         R.values
+      // $FlowFixMe: undefined is checked above
       )(advert.wizardElement.data)}
       <button type='submit'>{i18n.t['save']}</button>
     </form>

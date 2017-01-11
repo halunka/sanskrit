@@ -5,7 +5,7 @@ import R from 'ramda'
 import { withValueFromEvent } from '../../utils/dom'
 import i18n from '../../stores/i18n'
 
-import type { SelectFieldT } from '../../stores/fields/sleect'
+import type { SelectFieldT } from '../../stores/fields/select'
 
 export default observer(function SelectField (field: SelectFieldT) {
   return (

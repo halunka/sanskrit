@@ -13,7 +13,17 @@ export type Field<T> = {
   validate?: (value: T) => string | Array<string> | false
 }
 
-export default function mkField <T> (field: Field<T>): Field<T> {
+type FieldParams<T> = {
+  type: string,
+  value: T,
+  data?: any,
+  valid?: boolean,
+  update?: (newValue: T) => Field<T>,
+  validate?: (value: T) => string | Array<string> | false
+}
+
+export default function mkField <T> (field: FieldParams<T>): Field<T> {
+  // $FlowFixMe
   const fieldElement = observable(Object.assign(
     {
       update: action((newValue: T) => {

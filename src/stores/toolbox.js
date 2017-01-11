@@ -1,16 +1,14 @@
-import uuid from 'uuid'
-
 import mkTemplate from './template'
 import mkElementSlot from './element-slot'
 import mkParagraph from './elements/paragraph'
 
 import type { Template } from './template'
-import type { Element } from './element'
+import type { ElementA } from './element'
 
 export type ToolboxT = {
   templates: Array<Template>,
   // FIXME: `any` should really be a generic
-  elementFactories: { [string]: (slot: string) => Element<any> },
+  elementFactories: { [string]: (slot: string) => ElementA },
 }
 
 export default function mkToolbox (): ToolboxT {
@@ -22,7 +20,6 @@ export default function mkToolbox (): ToolboxT {
         size: { width: 54, height: 58 },
         slots: [
           mkElementSlot({
-            // $FlowFixMe: definition doesn't contain `uuid()`
             id: '9fd0dcd9-e67b-41ef-909b-2987673be430',
             size: { width: 50, height: 54 },
             position: { left: 2, top: 2 }

@@ -10,14 +10,15 @@ import mkNumberField from '../fields/number'
 import type { TextFieldT } from '../fields/text'
 import type { NumberFieldT } from '../fields/number'
 import type { FPosition, FSize } from '../../utils'
+import type { ElementT } from '../element'
 
-export type ParagraphData = {
+type ParagraphData = {
   text: TextFieldT,
   fontSize: NumberFieldT,
   lineHeight: NumberFieldT,
 }
 
-export type ParagraphT = {
+export type ParagraphT = ElementT<ParagraphData> & {
   id: string,
   type: string,
   slot?: string,
@@ -37,13 +38,19 @@ export type ParagraphT = {
   lines: Array<string>
 }
 
+type ParagraphDataParams = {
+  text?: string,
+  fontSize?: number,
+  lineHeight?: number,
+}
+
 const defaultValues = {
   text: '',
   fontSize: 1,
   lineHeight: 1.2
 }
 
-export default function mkParagraph (slot: string, data?: ParagraphData = {}): ParagraphT {
+export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}): ParagraphT {
   const paragraph = mkElement(
     {
       id: uuid(),

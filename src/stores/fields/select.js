@@ -4,16 +4,14 @@ import mkField from '../field'
 
 import type { Field } from '../field'
 
-export type SelectFieldT = Field & {
-  type: 'select'
-}
+export type SelectFieldT = Field<string>
 
 type SelectFieldInput<V> = {
   data: { [string]: V },
-  value?: V
+  value?: string
 }
 
-export default function mkSelectField ({ data, value }: SelectFieldInput<V>): SelectFieldT {
+export default function mkSelectField ({ data, value }: SelectFieldInput<*>): SelectFieldT {
   return mkField({
     data,
     type: 'text',

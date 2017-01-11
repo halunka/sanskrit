@@ -5,9 +5,7 @@ import { validateTruthy } from '../../utils/validate'
 
 import type { Field } from '../field'
 
-export type TextFieldT = Field & {
-  type: 'text'
-}
+export type TextFieldT = Field<string>
 
 export default function mkTextField (value: string, otherAttributes?: Object): TextFieldT {
   return mkField(Object.assign(

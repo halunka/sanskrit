@@ -5,5 +5,3 @@
 Super awesome thingy! With pictures! Also SVG!
 
 ## TODO
-
-* fix flowscript typings

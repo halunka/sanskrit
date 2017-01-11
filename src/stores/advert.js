@@ -4,15 +4,15 @@ import R from 'ramda'
 import { getViewBox, withId } from '../utils'
 
 import type { Template } from './template'
-import type { Element } from './element'
-import type { Position, FSize } from '../utils'
+import type { ElementA } from './element'
+import type { Position, FSize, Size } from '../utils'
 
 export type ElementParams<T> = {
   type: string,
   id: string,
   slot?: string,
   position: Position,
-  size: FSize,
+  size: Size,
   data: T
 }
 
@@ -20,15 +20,15 @@ export type Advert = {
   name: string,
   // TODO: this should be `template?`
   template: Template,
-  // FIXME: `any` should be some generic
-  elements: Array<Element<any>>,
+  elements: Array<ElementA>,
   /* wether to show a wizard and with what element (its id) */
   wizard: ?string,
+  wizardElement: ?ElementA,
   viewBox: string,
   sizeInPx: FSize,
   valid: boolean,
-  addElement: (element: ElementParams<any>, index?: number) => Advert,
-  newElementWizard: (element: Element<any>, index: number) => Advert,
+  addElement: (element: ElementA, index?: number) => Advert,
+  newElementWizard: (element: ElementA, index: number) => Advert,
   closeWizard: () => Advert,
   setWizard: (elementId: string) => () => Advert,
   moveElement: (elementId: string, newIndex: number) => ?Advert,
@@ -42,9 +42,7 @@ export default function mkAdvert (template: Template): Advert {
     template,
     elements: [],
     wizard: null,
-    wizardElement: computed(() =>
-      R.find(withId(advert.wizard), advert.elements)
-    ),
+    wizardElement: computed(() => R.find(withId(advert.wizard), advert.elements)),
     viewBox: computed(() =>
       advert.template
         ? getViewBox(advert.template)
