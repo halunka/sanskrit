@@ -129,9 +129,10 @@ export default (template: Template): Advert => {
     }),
     export: asReference(() => JSON.stringify({
       template: advert.template.id,
+      wizard: advert.wizard,
       elements: R.map(R.pipe(
         Mobx.toJS,
-        R.pick(['type', 'slot', 'data']),
+        R.pick(['id', 'type', 'slot', 'data']),
         (element) => R.assoc('data', R.map(R.prop('value'), element.data), element)
       ), advert.elements)
     }))
