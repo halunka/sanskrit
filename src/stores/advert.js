@@ -32,7 +32,8 @@ export type Advert = {
   closeWizard: () => Advert,
   setWizard: (elementId: string) => () => Advert,
   moveElement: (elementId: string, newIndex: number) => ?Advert,
-  export: () => string,
+  removeElement: (elementId: string) => ?Advert,
+  export: () => string
 }
 
 export default (template: Template): Advert => {
@@ -107,7 +108,6 @@ export default (template: Template): Advert => {
       return advert
     }),
     setWizard: action((elementId) => () => {
-      console.log('setting wizard')
       advert.wizard = elementId
       return advert
     }),
@@ -121,6 +121,11 @@ export default (template: Template): Advert => {
         advert.elements.splice(newIndex, 0, element)
       })
       return advert
+    }),
+    removeElement: action((elementId) => {
+      const index = advert.elements.findIndex(withId(elementId))
+      if (index === -1) return null
+      advert.elements.splice(index, 1)
     }),
     export: asReference(() => JSON.stringify({
       template: advert.template.id,

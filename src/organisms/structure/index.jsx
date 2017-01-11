@@ -38,6 +38,9 @@ export default observer(({ advert, toolbox }: Props) => (
           onSort={({ item, newIndex }) => {
             advert.moveElement(item.dataset.id, newIndex)
           }}
+          onRemove={({ item }) => {
+            advert.removeElement(item.dataset.id)
+          }}
           ghostClass='element-ghost'
         >
           {slot.elements.map((element, i) => (
@@ -47,6 +50,7 @@ export default observer(({ advert, toolbox }: Props) => (
               onClick={advert.setWizard(element.id)}
               >
               <figcaption>{i18n.t[`elements.${element.type}`]}</figcaption>
+              <button onClick={() => { advert.removeElement(element.id) }}>x</button>
             </figure>
           ))}
         </Sortable>
