@@ -1,5 +1,5 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 import R from 'ramda'
 
 import Sortable from '../../atoms/sortable'
@@ -19,7 +19,7 @@ export default observer(function Toolbox ({ advert, toolbox }: Props) {
     <section>
       <h2>{i18n.t['toolbox.title']}:</h2>
       <Sortable
-        group={{ name: 'elements', pull: 'clone', put: false }}
+        group={{ name: 'elements', pull: true, put: false }}
         wrapperClass={styles.elementList}
         >
         {R.pipe(

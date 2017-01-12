@@ -1,5 +1,5 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 import R from 'ramda'
 
 import i18n from '../../../stores/i18n'
@@ -29,7 +29,7 @@ export default observer(function Wizard ({ advert }: Props) {
         R.mapObjIndexed((field, key) => (
           <fieldset key={key}>
             {
-              React.createElement(
+              h(
                 fields[field.type],
                 field
               )

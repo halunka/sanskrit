@@ -1,8 +1,8 @@
 /* @file Screen
  * The rendered preview of the advert.
  */
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 
 import Paragraph from '../molecules/paragraph'
 import type { Advert } from '../../stores/advert'
@@ -36,7 +36,7 @@ export default observer(function Screen ({ advert }: Props) {
               height={slot.size.height}
               >
               {slot.elements.map((element, key) =>
-                React.createElement(
+                h(
                   elementViews[element.type],
                   { advert, element, key }
                 )

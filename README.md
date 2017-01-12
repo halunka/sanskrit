@@ -5,3 +5,7 @@
 Super awesome thingy! With pictures! Also SVG!
 
 ## TODO
+* Automatic saving to localStorage
+* implement proper text wrapping
+* look over ElementT vs ElementA mess
+* implement a image element

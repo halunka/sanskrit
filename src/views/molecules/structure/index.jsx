@@ -1,5 +1,5 @@
-import { observer } from 'mobx-react'
-import React from 'react'
+import { observer } from 'mobx-preact'
+import { h } from 'preact'
 
 import Sortable from '../../atoms/sortable'
 import i18n from '../../../stores/i18n'
@@ -33,8 +33,6 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
                * that type. then open a wizard with that element
                */
               advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id), newIndex)
-              /* now remove the item node, since it's no longer needed */
-              item.parentNode.removeChild(item)
             }}
             onSort={({ item, newIndex }) => {
               advert.moveElement(item.dataset.id, newIndex)

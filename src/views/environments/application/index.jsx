@@ -1,5 +1,5 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 
 import Structure from '../../molecules/structure'
 import Screen from '../../organisms/screen'

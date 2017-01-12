@@ -1,4 +1,8 @@
 {
-  "plugins": ["transform-flow-strip-types"],
+  "plugins": [
+    "transform-flow-strip-types",
+    ["transform-react-jsx", { "pragma":"h" }],
+    "babel-plugin-ramda"
+  ],
   "presets": ["react", "es2015"]
 }
