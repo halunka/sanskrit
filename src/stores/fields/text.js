@@ -1,11 +1,19 @@
-import { observable } from 'mobx'
+import R from 'ramda'
 
-export type TextField = {
-  type: 'text',
-  value: string
+import mkField from '../field'
+import { validateTruthy } from '../../utils/validate'
+
+import type { Field } from '../field'
+
+export type TextFieldT = Field<string>
+
+export default function mkTextField (value: string, otherAttributes?: Object): TextFieldT {
+  return mkField(Object.assign(
+    {
+      type: 'text',
+      validate: R.path(['validate'], otherAttributes) || validateTruthy,
+      value
+    },
+    otherAttributes
+  ))
 }
-
-export default (value: string): TextField => observable({
-  type: 'text',
-  value
-})

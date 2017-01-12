@@ -1,18 +1,20 @@
 import { observable, asReference } from 'mobx'
 
-import type { Size } from '../types/utils'
+import type { FSize } from '../utils'
 import type { ElementSlot } from './element-slot'
 
 export type Template = {
   id: string,
   name: string,
-  size: Size,
+  size: FSize,
   slots: Array<ElementSlot>
 }
 
-export default ({ id, name, slots, size }: Template): Template => observable({
-  id: asReference(id),
-  name: asReference(name),
-  slots,
-  size
-})
+export default function mkTemplate ({ id, name, slots, size }: Template): Template {
+  return observable({
+    id: asReference(id),
+    name: asReference(name),
+    slots,
+    size
+  })
+}

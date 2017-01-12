@@ -6,6 +6,8 @@
   "scripts": {
     "dev-server": "webpack-dev-server",
     "build:prod": "webpack -p",
+    "test": "ava",
+    "test:watch": "ava --watch",
     "flow": "flow",
     "flow-typed": "flow-typed"
   },
@@ -23,6 +25,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.21.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "babel-require": "^1.0.1",
     "css-loader": "^0.26.1",
     "eslint-plugin-flowtype": "^2.29.2",
     "file-loader": "^0.9.0",
@@ -30,6 +33,7 @@
     "flow-typed": "^2.0.0",
     "postcss-loader": "^1.2.1",
     "standard": "^8.6.0",
+    "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "beta",
     "webpack-dev-server": "beta"
@@ -42,6 +46,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "rxjs": "^5.0.2",
+    "sortablejs": "^1.5.0-rc1",
     "uuid": "^3.0.1"
   },
   "standard": {
@@ -49,5 +54,11 @@
     "plugins": [
       "flowtype"
     ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   }
 }

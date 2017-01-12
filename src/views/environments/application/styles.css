@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.main { flex: 4 1; }
+.tools {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+}

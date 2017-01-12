@@ -39,6 +39,7 @@ module.exports = {
         test: /\.css$/,
         include: /src/,
         use: [
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
@@ -56,5 +57,8 @@ module.exports = {
       }
     ]
   },
-  devtool: 'cheap-eval-source-map'
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css']
+  },
+  devtool: DEV ? 'cheap-module-eval-source-map' : undefined
 }

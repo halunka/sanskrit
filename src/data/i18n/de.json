@@ -1,0 +1,9 @@
+{
+  "save": "speichern",
+  "wizard.title": "Wizard",
+  "toolbox.title": "Wekzeugskiste",
+  "structure.title": "Struktur",
+  "templates.simple-immo": "Immobilieninserat",
+  "elements.paragraph": "Text",
+  "errors.must-exist": "Dieses feld darf nicht leer sein."
+}
