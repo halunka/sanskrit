@@ -1701,6 +1701,10 @@ core-assert@^0.2.0:
     buf-compare "^1.0.0"
     is-error "^2.2.0"
 
+core-js@^0.8.3:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-0.8.4.tgz#c22665f1e0d1b9c3c5e1b08dabd1f108695e4fcf"
+
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -3561,6 +3565,12 @@ mobx-preact:
     invariant "^2.2.2"
     preact-classless-component "^1.0.5"
 
+mock-local-storage:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.2.tgz#a65a65cddab4707433d52ba4e9f6b63084b8c298"
+  dependencies:
+    core-js "^0.8.3"
+
 ms@^0.7.1, ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
@@ -4765,12 +4775,6 @@ rx-lite@4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-rxjs:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.2.tgz#cc6513756daa93cab4085c1b5a19a3e28fb6c6bf"
-  dependencies:
-    symbol-observable "^1.0.1"
-
 sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
@@ -5163,10 +5167,6 @@ svgo@^0.7.0:
 symbol-observable@^0.2.2:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-0.2.4.tgz#95a83db26186d6af7e7a18dbd9760a2f86d08f40"
-
-symbol-observable@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
 symbol@^0.2.1:
   version "0.2.3"

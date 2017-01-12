@@ -4,7 +4,7 @@ import { h } from 'preact'
 import { withValueFromEvent } from '../../utils/dom'
 import type { NumberFieldT } from '../../stores/fields/number'
 
-const onChange = (field) => withValueFromEvent((v) => console.log(v) || field.update(Number(v)))
+const onChange = (field) => withValueFromEvent((v) => field.update(Number(v)))
 
 export default observer(function NumberField (field: NumberFieldT) {
   return (
