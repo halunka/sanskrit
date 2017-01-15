@@ -54,10 +54,10 @@ const defaultValues = {
 
 const computedFromParagraph = computedFromField(defaultValues)
 
-export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}): ParagraphT {
+export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}, id?: string): ParagraphT {
   const paragraph = mkElement(
     {
-      id: uuid(),
+      id: id || uuid(),
       slot,
       type: 'paragraph',
       size: {

@@ -36,12 +36,12 @@ export type Advert = {
   export: () => string
 }
 
-export default function mkAdvert (template: Template): Advert {
+export default function mkAdvert (template: Template, wizard?: string): Advert {
   const advert = observable({
     name: '',
     template,
     elements: [],
-    wizard: null,
+    wizard: wizard || null,
     wizardElement: computed(() => R.find(withId(advert.wizard), advert.elements)),
     viewBox: computed(() =>
       advert.template
