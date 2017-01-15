@@ -1,5 +1,5 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 import R from 'ramda'
 
 import i18n from '../../../stores/i18n'
@@ -8,13 +8,15 @@ import { catchEvent } from '../../../utils/dom'
 import textField from '../../atoms/text-field'
 import numberField from '../../atoms/number-field'
 import selectField from '../../atoms/select-field'
+import fileField from '../../atoms/file-field'
 
 import type { Advert } from '../../../stores/advert'
 
 const fields = {
   text: textField,
   number: numberField,
-  select: selectField
+  select: selectField,
+  file: fileField
 }
 
 type Props = {
@@ -29,7 +31,7 @@ export default observer(function Wizard ({ advert }: Props) {
         R.mapObjIndexed((field, key) => (
           <fieldset key={key}>
             {
-              React.createElement(
+              h(
                 fields[field.type],
                 field
               )

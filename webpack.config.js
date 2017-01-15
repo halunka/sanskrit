@@ -1,7 +1,6 @@
 const path = require('path')
 
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 
 const DEV = process.env.NODE_ENV !== 'production'
 
@@ -9,11 +8,23 @@ module.exports = {
   entry: [ './src/index.jsx' ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/dist'
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin()
+    ...(!DEV ? [new webpack.LoaderOptionsPlugin({ minimize: true, debug: false })] : []),
+    ...(!DEV ? [new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true
+      },
+      compress: {
+        screw_ie8: true
+      },
+      comments: false
+    })] : []),
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [
@@ -28,12 +39,12 @@ module.exports = {
         ]
       },
       {
-        test: /(\.png|\.jpeg|\.svg)/,
+        test: /(\.png|\.jpeg|\.svg|\.gif)/,
         include: /src/,
-        use: {
-          loader: 'url-loader',
-          options: { limit: 1000 }
-        }
+        use: [
+          'file-loader',
+          'url-loader'
+        ]
       },
       {
         test: /\.css$/,
@@ -49,16 +60,21 @@ module.exports = {
               minimize: !DEV
             }
           },
-          {
-            loader: 'postcss-loader',
-            options: { plugins: () => [autoprefixer()] }
-          }
+          { loader: 'postcss-loader' }
         ]
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css']
+    extensions: ['.js', '.json', '.jsx', '.css'],
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   },
-  devtool: DEV ? 'cheap-module-eval-source-map' : undefined
+  devtool: DEV ? 'cheap-module-eval-source-map' : undefined,
+  stats: {
+    // Nice colored output
+    colors: true
+  }
 }

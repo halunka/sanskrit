@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { h, Component } from 'preact'
 import SortableClass from 'sortablejs'
 import R from 'ramda'
 
@@ -12,33 +12,26 @@ type Props = {
   ghostClass?: string,
   onAdd?: (item: window.HTMLElement, newIndex: number) => any,
   onSort?: (item: window.HTMLElement, newIndex: number) => any,
-  onRemove?: (item: window.HTMLElement) => any,
-  children?: React.Component<*>
+  onRemove?: (item: window.HTMLElement) => any
 }
 
 class Sortable extends Component {
   props: Props
-  sortable: Object
 
-  componentDidMount () {
-    const options = R.omit(['children', 'wrapperClass', 'wrapperElement', 'wrapperProps'], this.props)
-    this.sortable = new SortableClass(this.refs.list, options)
+  initializeSortable (options) {
+    return (listRef) => new SortableClass(listRef, options)
   }
 
   render () {
-    const {
-      wrapperClass,
-      wrapperElement = 'ul',
-      wrapperProps = {},
-      children
-    } = this.props
-
-    return (
-      React.createElement(
-        wrapperElement,
-        Object.assign({ className: wrapperClass, ref: 'list' }, wrapperProps),
-        children
-      )
+    const props = this.props
+    const options = R.omit(['children', 'wrapperClass', 'wrapperElement', 'wrapperProps'], props)
+    return h(
+      props.wrapperElement || 'ul',
+      Object.assign(
+        { className: props.wrapperClass, ref: this.initializeSortable(options) },
+        props.wrapperProps || {}
+      ),
+      props.children
     )
   }
 }

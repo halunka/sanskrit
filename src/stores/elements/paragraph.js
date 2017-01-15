@@ -1,11 +1,12 @@
-import { computed, action } from 'mobx'
+import { computed, action, asReference } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
 import { wrapText } from '../../utils/wrap-text'
-import { getValueIfValid } from '../../utils'
+import { computedFromField } from '../../utils'
 import mkTextField from '../fields/text'
 import mkNumberField from '../fields/number'
+import mkSelectField from '../fields/select'
 
 import type { TextFieldT } from '../fields/text'
 import type { NumberFieldT } from '../fields/number'
@@ -47,13 +48,16 @@ type ParagraphDataParams = {
 const defaultValues = {
   text: '',
   fontSize: 1,
-  lineHeight: 1.2
+  lineHeight: 1.2,
+  fontFamily: 'Helvetica Neue'
 }
 
-export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}): ParagraphT {
+const computedFromParagraph = computedFromField(defaultValues)
+
+export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}, id?: string): ParagraphT {
   const paragraph = mkElement(
     {
-      id: uuid(),
+      id: id || uuid(),
       slot,
       type: 'paragraph',
       size: {
@@ -70,19 +74,33 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
             paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.lineHeight
           })
         }),
+        fontFamily: mkSelectField({
+          'Helvetica Neue': 'Helvetica Neue',
+          'Times': 'Times'
+        }, defaultValues.fontFamily),
         lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight)
       }
     },
     {
       padding: 1,
-      text: computed(() => getValueIfValid(paragraph.data.text, defaultValues.text)),
-      fontSize: computed(() => getValueIfValid(paragraph.data.fontSize, defaultValues.fontSize)),
-      lineHeight: computed(() => getValueIfValid(paragraph.data.lineHeight, defaultValues.lineHeight)),
-      lines: computed(() => wrapText(
-        paragraph.size.width,
-        paragraph.fontSize,
-        paragraph.text,
-      ))
+      rendered: false,
+      text: computedFromParagraph('text'),
+      fontSize: computedFromParagraph('fontSize'),
+      lineHeight: computedFromParagraph('lineHeight'),
+      fontFamily: computedFromParagraph('fontFamily'),
+      lines: computed(() => {
+        /* only calculate the real lines after the paragraph has been rendered */
+        if (!paragraph.rendered) return []
+        return wrapText(
+          paragraph.size.width,
+          paragraph.fontFamily,
+          paragraph.fontSize,
+          paragraph.text
+        )
+      }),
+      hasRendered: asReference(() => {
+        paragraph.rendered = true
+      })
     }
   )
   return paragraph

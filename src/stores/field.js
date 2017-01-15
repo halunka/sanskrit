@@ -4,7 +4,7 @@ import { errorsToArray } from '../utils/validate'
 
 export type Field<T> = {
   type: string,
-  value: T,
+  value?: T,
   /* data may be used for arbitrary metadata of the field */
   data?: any,
   errors: Array<string>,
@@ -15,7 +15,7 @@ export type Field<T> = {
 
 type FieldParams<T> = {
   type: string,
-  value: T,
+  value?: T,
   data?: any,
   valid?: boolean,
   update?: (newValue: T) => Field<T>,

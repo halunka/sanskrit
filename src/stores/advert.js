@@ -36,12 +36,12 @@ export type Advert = {
   export: () => string
 }
 
-export default function mkAdvert (template: Template): Advert {
+export default function mkAdvert (template: Template, wizard?: string): Advert {
   const advert = observable({
     name: '',
     template,
     elements: [],
-    wizard: null,
+    wizard: wizard || null,
     wizardElement: computed(() => R.find(withId(advert.wizard), advert.elements)),
     viewBox: computed(() =>
       advert.template
@@ -129,7 +129,6 @@ export default function mkAdvert (template: Template): Advert {
       template: advert.template.id,
       wizard: advert.wizard,
       elements: R.map(R.pipe(
-        Mobx.toJS,
         R.pick(['id', 'type', 'slot', 'data']),
         (element) => R.assoc('data', R.map(R.prop('value'), element.data), element)
       ), advert.elements)

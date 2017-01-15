@@ -1,7 +1,7 @@
 /* @file i18n
  * Store containing all translations and the current language
  */
-import { observable, action, computed, extendObservable } from 'mobx'
+import { observable, action, computed, extendObservable, asReference } from 'mobx'
 import R from 'ramda'
 
 import en from '../data/i18n/en'
@@ -19,8 +19,8 @@ export type I18n = {
 
 const i18n: I18n = observable({
   /* default language */
-  // TODO: derive this from the navigator
-  language: 'en',
+  language: (R.path(['navigator', 'language'], window) || '').split('-')[0],
+  availableLanguages: asReference([ 'en', 'de' ]),
   add: action((key: string, translations: Translations) =>
     extendObservable(i18n.t, {
       [key]: computed(() => translations[i18n.language])

@@ -124,7 +124,8 @@ test('export should contain all exportable attributes', t => {
         data: {
           text: advert.elements[0].text,
           fontSize: advert.elements[0].fontSize,
-          lineHeight: advert.elements[0].lineHeight
+          lineHeight: advert.elements[0].lineHeight,
+          fontFamily: advert.elements[0].fontFamily
         }
       },
       {
@@ -134,7 +135,8 @@ test('export should contain all exportable attributes', t => {
         data: {
           text: advert.elements[1].text,
           fontSize: advert.elements[1].fontSize,
-          lineHeight: advert.elements[1].lineHeight
+          lineHeight: advert.elements[1].lineHeight,
+          fontFamily: advert.elements[0].fontFamily
         }
       }
     ]

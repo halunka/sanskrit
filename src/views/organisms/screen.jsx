@@ -1,18 +1,21 @@
 /* @file Screen
  * The rendered preview of the advert.
  */
-import React from 'react'
-import { observer } from 'mobx-react'
+import { h } from 'preact'
+import { observer } from 'mobx-preact'
 
 import Paragraph from '../molecules/paragraph'
+import Image from '../molecules/image'
 import type { Advert } from '../../stores/advert'
+import { setRenderNode } from '../../utils/wrap-text'
 
 type Props = {
   advert: Advert
 }
 
 const elementViews = {
-  paragraph: Paragraph
+  paragraph: Paragraph,
+  image: Image
 }
 
 export default observer(function Screen ({ advert }: Props) {
@@ -23,6 +26,7 @@ export default observer(function Screen ({ advert }: Props) {
         <svg
           width={advert.sizeInPx.width}
           height={advert.sizeInPx.height}
+          ref={setRenderNode(advert.template.size.width, advert.sizeInPx.width)}
           viewBox={advert.viewBox}
           xmlns='http://www.w3.org/2000/svg'
           xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -36,7 +40,7 @@ export default observer(function Screen ({ advert }: Props) {
               height={slot.size.height}
               >
               {slot.elements.map((element, key) =>
-                React.createElement(
+                h(
                   elementViews[element.type],
                   { advert, element, key }
                 )

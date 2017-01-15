@@ -1,20 +1,17 @@
 import R from 'ramda'
 
 import mkField from '../field'
+import { validateTruthy } from '../../utils/validate'
 
 import type { Field } from '../field'
 
 export type SelectFieldT = Field<string>
 
-type SelectFieldInput<V> = {
-  data: { [string]: V },
-  value?: string
-}
-
-export default function mkSelectField ({ data, value }: SelectFieldInput<*>): SelectFieldT {
+export default function mkSelectField <V> (data: { [string]: V }, value?: V): SelectFieldT {
   return mkField({
+    type: 'select',
+    validate: validateTruthy,
     data,
-    type: 'text',
-    value: value || R.head(data)
+    value,
   })
 }
