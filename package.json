@@ -46,6 +46,7 @@
     "mobx": "^2.7.0",
     "mobx-preact": "^0.3.0",
     "preact": "^7.1.0",
+    "preact-compat": "^3.10.0",
     "ramda": "^0.23.0",
     "sortablejs": "^1.5.0-rc1",
     "uuid": "^3.0.1"

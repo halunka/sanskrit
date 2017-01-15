@@ -22,3 +22,13 @@ export const waitForParents = (fn: (ref: window.Node) => any) => (ref: window.No
     fn(ref)
   })
 }
+
+export const getFilesFromEvent = (fn: string | false) => catchEvent((e: window.InputEvent) => {
+  const file = e.target.files[0]
+  if (!file) return false
+  const reader = new window.FileReader()
+  reader.addEventListener('load', (e) => {
+    fn(e.target.result)
+  })
+  reader.readAsDataURL(file)
+})

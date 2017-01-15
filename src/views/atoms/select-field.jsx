@@ -1,7 +1,6 @@
 import { observer } from 'mobx-preact'
 import { h } from 'preact'
 import R from 'ramda'
-import i18n from '../../stores/i18n'
 
 import { withValueFromEvent } from '../../utils/dom'
 

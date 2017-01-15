@@ -39,12 +39,12 @@ module.exports = {
         ]
       },
       {
-        test: /(\.png|\.jpeg|\.svg)/,
+        test: /(\.png|\.jpeg|\.svg|\.gif)/,
         include: /src/,
-        use: {
-          loader: 'url-loader',
-          options: { limit: 1000 }
-        }
+        use: [
+          'file-loader',
+          'url-loader'
+        ]
       },
       {
         test: /\.css$/,
@@ -66,7 +66,11 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css']
+    extensions: ['.js', '.json', '.jsx', '.css'],
+    alias: {
+      'react': 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   },
   devtool: DEV ? 'cheap-module-eval-source-map' : undefined,
   stats: {

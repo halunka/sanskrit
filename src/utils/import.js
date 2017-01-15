@@ -2,13 +2,15 @@ import R from 'ramda'
 
 import mkAdvert from '../stores/advert'
 import mkParagraph from '../stores/elements/paragraph'
+import mkImage from '../stores/elements/image'
 import { withId } from './'
 
 import type { ToolboxT } from '../stores/toolbox'
 import type { Advert } from '../stores/advert'
 
 const elementFactories = {
-  paragraph: mkParagraph
+  paragraph: mkParagraph,
+  image: mkImage
 }
 
 export default (jsonData: string, toolbox: ToolboxT): Advert => {

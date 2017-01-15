@@ -8,13 +8,15 @@ import { catchEvent } from '../../../utils/dom'
 import textField from '../../atoms/text-field'
 import numberField from '../../atoms/number-field'
 import selectField from '../../atoms/select-field'
+import fileField from '../../atoms/file-field'
 
 import type { Advert } from '../../../stores/advert'
 
 const fields = {
   text: textField,
   number: numberField,
-  select: selectField
+  select: selectField,
+  file: fileField
 }
 
 type Props = {
