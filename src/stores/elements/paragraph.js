@@ -3,7 +3,7 @@ import uuid from 'uuid'
 
 import mkElement from '../element'
 import { wrapText } from '../../utils/wrap-text'
-import { computedFromField } from '../../utils'
+import { cutTo, computedFromField } from '../../utils'
 import mkTextField from '../fields/text'
 import mkNumberField from '../fields/number'
 import mkSelectField from '../fields/select'
@@ -100,7 +100,8 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
       }),
       hasRendered: asReference(() => {
         paragraph.rendered = true
-      })
+      }),
+      preview: computed(() => cutTo(paragraph.text))
     }
   )
   return paragraph

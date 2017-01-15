@@ -16,7 +16,8 @@ export type ElementT<T> = {
   /* size in percentages relative to the element slot */
   size: FSize,
   data: T,
-  valid: boolean
+  valid: boolean,
+  preview: string
 }
 
 type ElementParam<T> = {

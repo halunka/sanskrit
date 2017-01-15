@@ -51,6 +51,7 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
                 <figcaption className={styles.elementTitle}>
                   {i18n.t[`elements.${element.type}`]}
                 </figcaption>
+                <p className={styles.preview}>{element.preview}</p>
                 <button
                   className={styles.delete}
                   onClick={catchEvent(() => { advert.removeElement(element.id) })}

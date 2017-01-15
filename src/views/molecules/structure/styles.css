@@ -35,7 +35,7 @@
   justify-content: center;
   position: relative;
   width: calc(100% - 2rem);
-  height: 4rem;
+  min-height: 4rem;
   margin: 1rem;
   padding: 1rem;
   border-radius: 3px;
@@ -49,6 +49,14 @@
 .elementTitle {
   text-align: left;
   font-weight: 600;
+}
+
+.preview {
+  font-weight: 400;
+  margin: .5rem 0 0 0;
+  text-align: left;
+  font-size: .8rem;
+  color: hsl(0, 0%, 50%);
 }
 
 .label {

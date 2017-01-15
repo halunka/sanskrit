@@ -41,5 +41,15 @@ export const getValueIfValid = <T>(field: Field<T>, defaultValue: T) => field.va
   ? field.value
   : defaultValue
 
-export const computedFromField = (defaultValues: { [string]: any }) => (key: string) =>
-  computed(function () { return getValueIfValid(this.data[key], defaultValues[key]) })
+export const computedFromField = (defaultValues: { [string]: any }) => (key: string, fromValue?: string) =>
+  computed(function () {
+    const value = getValueIfValid(this.data[key], defaultValues[key])
+    return fromValue
+      ? R.path([fromValue], value) || defaultValues[key][fromValue]
+      : value
+  })
+
+export const cutTo = (text, maxLength = 27) =>
+  text.length <= maxLength - 3
+    ? text
+    : `${text.substr(0, maxLength - 3)}...`
