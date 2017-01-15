@@ -11,9 +11,9 @@ export default observer(function Image ({ element }: Props) {
   return (
     <image
       width={element.size.width}
-      height={element.size.height}
+      height={element.size.height - element.padding * 2}
       x={element.position.left}
-      y={element.position.top}
+      y={element.position.top + element.padding}
       href={element.image}
       />
   )

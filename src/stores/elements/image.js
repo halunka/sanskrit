@@ -4,6 +4,7 @@
  * It would be a lot better not to store the files as strings... but for now,
  * this is the most economical way to implement it.
  */
+import { computed } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
@@ -23,7 +24,8 @@ type ImageDataParams = {
 
 type ImageT = ElementT<ImageData> & {
   image: string,
-  data: ImageData
+  data: ImageData,
+  padding: number
 }
 
 const defaultValues: ImageData = {
@@ -38,15 +40,18 @@ export default function mkImage (slot: string, data?: ImageDataParams = {}, id?:
       slot,
       size: {
         autoWidth: true,
-        // TODO: should be computed somehow 😅
-        height: 20
+        // TODO: should be computed based on the aspect ratio somehow 😅
+        height: computed(() => image.padding * 2 + 20)
       },
       position: { left: 0 },
       data: {
         image: mkFileField(data.image)
       }
     },
-    { image: computedFromField(defaultValues)('image') }
+    {
+      image: computedFromField(defaultValues)('image'),
+      padding: 2
+    }
   )
   return image
 }
