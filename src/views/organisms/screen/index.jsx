@@ -4,10 +4,12 @@
 import { h } from 'preact'
 import { observer } from 'mobx-preact'
 
-import Paragraph from '../molecules/paragraph'
-import Image from '../molecules/image'
-import type { Advert } from '../../stores/advert'
-import { setRenderNode } from '../../utils/wrap-text'
+import Paragraph from '../../molecules/paragraph'
+import Image from '../../molecules/image'
+import type { Advert } from '../../../stores/advert'
+import { setRenderNode } from '../../../utils/wrap-text'
+
+import styles from './styles'
 
 type Props = {
   advert: Advert
@@ -21,9 +23,10 @@ const elementViews = {
 export default observer(function Screen ({ advert }: Props) {
   return (
     // Only render if there's a template
-    <section>
+    <section className={styles.wrapper}>
       { advert.template !== undefined && (
         <svg
+          className={styles.svg}
           width={advert.sizeInPx.width}
           height={advert.sizeInPx.height}
           ref={setRenderNode(advert.template.size.width, advert.sizeInPx.width)}

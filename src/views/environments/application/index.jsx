@@ -15,6 +15,7 @@ import * as storage from '../../../utils/storage'
 import {getLanguageFromNavigator} from '../../../utils/dom'
 
 import styles from './styles.css'
+import '../../../styles'
 
 const toolbox = mkToolbox()
 // simply use the only available template for now
@@ -40,13 +41,15 @@ export default observer(function Application () {
       <sidebar className={styles.tools}>
         <Toolbox toolbox={toolbox} advert={advert} />
         <Structure toolbox={toolbox} advert={advert} />
-        {advert.wizardElement && (
-          <Wizard advert={advert} />
-        )}
       </sidebar>
       <main className={styles.main} key='main'>
         <Screen advert={advert} />
       </main>
+      <sidebar className={styles.wizard}>
+        {advert.wizardElement && (
+          <Wizard advert={advert} />
+        )}
+      </sidebar>
       <LanguageSwitcher i18n={i18n} />
     </div>
   )

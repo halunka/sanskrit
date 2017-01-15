@@ -23,15 +23,16 @@ export const waitForParents = (fn: (ref: window.Node) => any) => (ref: window.No
   })
 }
 
-export const getFilesFromEvent = (fn: string | false) => catchEvent((e: window.InputEvent) => {
-  const file = e.target.files[0]
-  if (!file) return false
-  const reader = new window.FileReader()
-  reader.addEventListener('load', (e) => {
-    fn(e.target.result)
+export const getFilesFromEvent = (fn: (fileName: string, file: string | false) => any) =>
+  catchEvent((e: window.InputEvent) => {
+    const file = e.target.files[0]
+    if (!file) return false
+    const reader = new window.FileReader()
+    reader.addEventListener('load', (e) => {
+      fn({ name: file.name, content: e.target.result })
+    })
+    reader.readAsDataURL(file)
   })
-  reader.readAsDataURL(file)
-})
 
 export const getLanguageFromNavigator = () =>
   (R.path(['navigator', 'language'], window) || '').split('-')[0]

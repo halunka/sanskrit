@@ -16,8 +16,8 @@ type Props = {
 
 export default observer(function Toolbox ({ advert, toolbox }: Props) {
   return (
-    <section>
-      <h2>{i18n.t['toolbox.title']}:</h2>
+    <section className={styles.wrapper}>
+      <h2 className={styles.title}>{i18n.t['toolbox.title']}</h2>
       <Sortable
         group={{ name: 'elements', pull: true, put: false }}
         wrapperClass={styles.elementList}

@@ -1,3 +1,3 @@
 module.export = {
-  plugins: [ 'autoprefixer' ]
+  plugins: [ 'postcss-cssnext' ]
 }

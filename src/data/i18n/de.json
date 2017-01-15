@@ -1,5 +1,5 @@
 {
-  "save": "speichern",
+  "save": "Speichern",
   "wizard.title": "Wizard",
   "toolbox.title": "Wekzeugskiste",
   "structure.title": "Struktur",
@@ -7,5 +7,10 @@
   "elements.paragraph": "Text",
   "elements.image": "Bild",
   "errors.must-exist": "Dieses feld darf nicht leer sein.",
-  "please-choose": "Bitte wählen"
+  "please-choose": "Bitte wählen",
+  "field.lineHeight": "Zeilenhöhe",
+  "field.fontFamily": "Schriftart",
+  "field.fontSize": "Schriftgrösse",
+  "field.text": "Text",
+  "field.image": "Bild"
 }

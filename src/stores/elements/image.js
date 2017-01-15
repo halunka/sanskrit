@@ -5,10 +5,11 @@
  * this is the most economical way to implement it.
  */
 import { computed } from 'mobx'
+import R from 'ramda'
 import uuid from 'uuid'
 
 import mkElement from '../element'
-import { computedFromField } from '../../utils'
+import { cutTo, computedFromField } from '../../utils'
 import mkFileField from '../fields/file'
 
 import type { ElementT } from '../element'
@@ -29,7 +30,10 @@ type ImageT = ElementT<ImageData> & {
 }
 
 const defaultValues: ImageData = {
-  image: ''
+  image: {
+    content: '',
+    name: ''
+  }
 }
 
 export default function mkImage (slot: string, data?: ImageDataParams = {}, id?: string): ImageT {
@@ -45,11 +49,13 @@ export default function mkImage (slot: string, data?: ImageDataParams = {}, id?:
       },
       position: { left: 0 },
       data: {
-        image: mkFileField(data.image)
+        image: mkFileField(data.image, { label: 'field.image' })
       }
     },
     {
-      image: computedFromField(defaultValues)('image'),
+      image: computedFromField(defaultValues)('image', 'content'),
+      fileName: computedFromField(defaultValues)('image', 'name'),
+      preview: computed(() => cutTo(image.fileName)),
       padding: 2
     }
   )

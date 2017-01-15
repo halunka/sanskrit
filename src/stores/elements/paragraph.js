@@ -3,7 +3,7 @@ import uuid from 'uuid'
 
 import mkElement from '../element'
 import { wrapText } from '../../utils/wrap-text'
-import { computedFromField } from '../../utils'
+import { cutTo, computedFromField } from '../../utils'
 import mkTextField from '../fields/text'
 import mkNumberField from '../fields/number'
 import mkSelectField from '../fields/select'
@@ -66,19 +66,24 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
       },
       position: { left: 0 },
       data: {
-        text: mkTextField(data.text || defaultValues.text),
+        text: mkTextField(data.text || defaultValues.text, { label: 'field.text' }),
         fontSize: mkNumberField(data.fontSize || defaultValues.fontSize, {
           update: action((newValue: number) => {
             const oldFontSize = paragraph.fontSize
             paragraph.data.fontSize.value = newValue
             paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.lineHeight
-          })
+          }),
+          label: 'field.fontSize'
         }),
-        fontFamily: mkSelectField({
-          'Helvetica Neue': 'Helvetica Neue',
-          'Times': 'Times'
-        }, defaultValues.fontFamily),
-        lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight)
+        fontFamily: mkSelectField(
+          {
+            'Helvetica Neue': 'Helvetica Neue',
+            'Times': 'Times'
+          },
+          defaultValues.fontFamily,
+          { label: 'field.fontFamily' }
+        ),
+        lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight, { label: 'field.lineHeight' })
       }
     },
     {
@@ -100,7 +105,8 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
       }),
       hasRendered: asReference(() => {
         paragraph.rendered = true
-      })
+      }),
+      preview: computed(() => cutTo(paragraph.text))
     }
   )
   return paragraph
