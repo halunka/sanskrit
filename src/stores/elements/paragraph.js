@@ -2,10 +2,11 @@ import { computed, action, asReference } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
-import { wrapText, setRenderNode } from '../../utils/wrap-text'
+import { wrapText } from '../../utils/wrap-text'
 import { computedFromField } from '../../utils'
 import mkTextField from '../fields/text'
 import mkNumberField from '../fields/number'
+import mkSelectField from '../fields/select'
 
 import type { TextFieldT } from '../fields/text'
 import type { NumberFieldT } from '../fields/number'
@@ -47,7 +48,8 @@ type ParagraphDataParams = {
 const defaultValues = {
   text: '',
   fontSize: 1,
-  lineHeight: 1.2
+  lineHeight: 1.2,
+  fontFamily: 'Helvetica Neue'
 }
 
 const computedFromParagraph = computedFromField(defaultValues)
@@ -72,6 +74,10 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
             paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.lineHeight
           })
         }),
+        fontFamily: mkSelectField({
+          'Helvetica Neue': 'Helvetica Neue',
+          'Times': 'Times'
+        }, defaultValues.fontFamily),
         lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight)
       }
     },
@@ -81,7 +87,7 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
       text: computedFromParagraph('text'),
       fontSize: computedFromParagraph('fontSize'),
       lineHeight: computedFromParagraph('lineHeight'),
-      fontFamily: 'Helvetica Neue',
+      fontFamily: computedFromParagraph('fontFamily'),
       lines: computed(() => {
         /* only calculate the real lines after the paragraph has been rendered */
         if (!paragraph.rendered) return []

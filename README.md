@@ -5,7 +5,7 @@
 Super awesome thingy! With pictures! Also SVG!
 
 ## TODO
-* implement proper text wrapping
 * add font family field to paragraph
 * look over ElementT vs ElementA mess
 * implement a image element
+* implement hyphanation for text-wrapping

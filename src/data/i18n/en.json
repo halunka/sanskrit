@@ -5,5 +5,6 @@
   "structure.title": "Structure",
   "templates.simple-immo": "Real Estate Advert",
   "elements.paragraph": "Text",
-  "errors.must-exist": "This field may not be empty."
+  "errors.must-exist": "This field may not be empty.",
+  "please-choose": "Please choose"
 }
