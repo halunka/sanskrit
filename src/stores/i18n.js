@@ -17,17 +17,21 @@ export type I18n = {
   t: { [string]: string }
 }
 
+const availableLanguages = [ 'en', 'de' ]
+
 const i18n: I18n = observable({
   /* default language */
-  language: (R.path(['navigator', 'language'], window) || '').split('-')[0],
-  availableLanguages: asReference([ 'en', 'de' ]),
+  language: 'en',
+  availableLanguages: asReference(availableLanguages),
   add: action((key: string, translations: Translations) =>
     extendObservable(i18n.t, {
       [key]: computed(() => translations[i18n.language])
     })
   ),
   setLanguage: action((language: Language) => {
-    i18n.language = language
+    if (availableLanguages.includes(language)) {
+      i18n.language = language
+    }
   }),
   t: {}
 })
