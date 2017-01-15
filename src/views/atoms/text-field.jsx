@@ -12,6 +12,7 @@ export default observer(function TextField (field: TextFieldT) {
       onKeyUp={handleChange}
       onChange={handleChange}
       value={field.value}
+      rows='8'
       />
   )
 })

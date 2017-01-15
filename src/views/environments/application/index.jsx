@@ -41,13 +41,15 @@ export default observer(function Application () {
       <sidebar className={styles.tools}>
         <Toolbox toolbox={toolbox} advert={advert} />
         <Structure toolbox={toolbox} advert={advert} />
-        {advert.wizardElement && (
-          <Wizard advert={advert} />
-        )}
       </sidebar>
       <main className={styles.main} key='main'>
         <Screen advert={advert} />
       </main>
+      <sidebar className={styles.wizardContainer}>
+        {advert.wizardElement && (
+          <Wizard advert={advert} />
+        )}
+      </sidebar>
       <LanguageSwitcher i18n={i18n} />
     </div>
   )
