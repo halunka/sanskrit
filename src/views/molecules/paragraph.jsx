@@ -1,6 +1,8 @@
 import { h } from 'preact'
 import { observer } from 'mobx-preact'
 
+import { waitForParents } from '../../utils/dom'
+
 import type { ParagraphT } from '../../stores/elements/paragraph'
 import type { Advert } from '../../stores/advert'
 
@@ -11,7 +13,7 @@ type Props = {
 
 export default observer(function Paragraph ({ advert, element }: Props) {
   return (
-    <text>
+    <text ref={waitForParents(element.hasRendered)}>
       {element.lines.map((line, i) =>
         <tspan
           font-size={element.fontSize}

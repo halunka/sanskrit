@@ -1,4 +1,5 @@
 import test from 'ava'
+import 'mock-local-storage'
 
 import { splitWords, isBoundary, wrapText } from '../wrap-text'
 
@@ -15,6 +16,6 @@ test('splitWords should split a text at every word boundary', t => {
 })
 
 test('wrapText should split text into lines that fit a given width', t => {
-  t.deepEqual(wrapText(4.3, 1, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa aaa ', 'dfsdf dfs ', '804jief'])
-  t.deepEqual(wrapText(4.3, 2, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa ', 'aaa ', 'dfsdf ', 'dfs ', '804jief'])
+  t.deepEqual(wrapText(4.3, 'Times', 1, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa aaa ', 'dfsdf dfs ', '804jief'])
+  t.deepEqual(wrapText(4.3, 'Times', 2, 'aaaa aaa dfsdf dfs 804jief'), ['aaaa ', 'aaa ', 'dfsdf ', 'dfs ', '804jief'])
 })

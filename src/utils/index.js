@@ -1,6 +1,8 @@
 import R from 'ramda'
+import { computed } from 'mobx'
 
 import type { Field } from '../stores/field'
+import type { ElementA } from '../stores/element'
 
 export type Position = {
   left?: number,
@@ -38,3 +40,6 @@ export const withId = (id: string) => R.propEq('id', id)
 export const getValueIfValid = <T>(field: Field<T>, defaultValue: T) => field.valid
   ? field.value
   : defaultValue
+
+export const computedFromField = (defaultValues: { [string]: any }) => (key: string) =>
+  computed(function () { return getValueIfValid(this.data[key], defaultValues[key]) })

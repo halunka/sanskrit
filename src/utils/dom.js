@@ -8,3 +8,17 @@ export const catchEvent = (fn: (e: window.Event) => any) => (e: window.Event) =>
 
 export const getValueFromEvent = R.path(['target', 'value'])
 export const withValueFromEvent = (fn: (value: string) => any) => R.pipe(getValueFromEvent, fn)
+
+const SVG_NS = 'http://www.w3.org/2000/svg'
+
+export const createSvgElement = (type: string) =>
+  document.createElementNS(SVG_NS, type)
+export const setSvgAttribute = (node: window.SVGElement, attribute: string, value: any) =>
+  node.setAttributeNS(SVG_NS, attribute, value)
+
+export const waitForParents = (fn: (ref: window.Node) => any) => (ref: window.Node) => {
+  // FIXME: I don't think this is 100% reliable
+  setTimeout(() => {
+    fn(ref)
+  })
+}

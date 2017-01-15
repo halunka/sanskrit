@@ -1,9 +1,9 @@
-import { computed, action } from 'mobx'
+import { computed, action, asReference } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
-import { wrapText } from '../../utils/wrap-text'
-import { getValueIfValid } from '../../utils'
+import { wrapText, setRenderNode } from '../../utils/wrap-text'
+import { computedFromField } from '../../utils'
 import mkTextField from '../fields/text'
 import mkNumberField from '../fields/number'
 
@@ -50,6 +50,8 @@ const defaultValues = {
   lineHeight: 1.2
 }
 
+const computedFromParagraph = computedFromField(defaultValues)
+
 export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}): ParagraphT {
   const paragraph = mkElement(
     {
@@ -75,14 +77,24 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
     },
     {
       padding: 1,
-      text: computed(() => getValueIfValid(paragraph.data.text, defaultValues.text)),
-      fontSize: computed(() => getValueIfValid(paragraph.data.fontSize, defaultValues.fontSize)),
-      lineHeight: computed(() => getValueIfValid(paragraph.data.lineHeight, defaultValues.lineHeight)),
-      lines: computed(() => wrapText(
-        paragraph.size.width,
-        paragraph.fontSize,
-        paragraph.text,
-      ))
+      rendered: false,
+      text: computedFromParagraph('text'),
+      fontSize: computedFromParagraph('fontSize'),
+      lineHeight: computedFromParagraph('lineHeight'),
+      fontFamily: 'Helvetica Neue',
+      lines: computed(() => {
+        /* only calculate the real lines after the paragraph has been rendered */
+        if (!paragraph.rendered) return []
+        return wrapText(
+          paragraph.size.width,
+          paragraph.fontFamily,
+          paragraph.fontSize,
+          paragraph.text
+        )
+      }),
+      hasRendered: asReference(() => {
+        paragraph.rendered = true
+      })
     }
   )
   return paragraph
