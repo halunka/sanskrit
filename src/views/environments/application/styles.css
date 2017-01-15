@@ -3,9 +3,13 @@
   flex-direction: row;
 }
 
-.main { flex: 4 1; }
+.main { flex: 2 1; }
 .tools {
   display: flex;
   flex: 1 1;
   flex-direction: column;
+}
+
+.wizard {
+  flex: 1 1;
 }

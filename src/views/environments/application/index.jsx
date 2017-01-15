@@ -45,7 +45,7 @@ export default observer(function Application () {
       <main className={styles.main} key='main'>
         <Screen advert={advert} />
       </main>
-      <sidebar className={styles.wizardContainer}>
+      <sidebar className={styles.wizard}>
         {advert.wizardElement && (
           <Wizard advert={advert} />
         )}
