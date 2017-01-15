@@ -19,6 +19,7 @@
 }
 
 .slot {
+  min-height: 2rem;
   overflow: hidden;
 }
 
