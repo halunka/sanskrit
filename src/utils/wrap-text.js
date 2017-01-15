@@ -2,7 +2,6 @@ import R from 'ramda'
 
 import { createSvgElement, setSvgAttribute } from './dom'
 import mkCache from './cache'
-import * as Err from './error'
 
 export const isBoundary = (l: string) => !!l.match(/\W/)
 
@@ -10,7 +9,7 @@ export const splitWords = (text: string) =>
   text.split('').reduce(
     (words, letter, i, letters) =>
       // if the last letter was a boundary or this is the first letter
-      (i === 0 || isBoundary(letters[i - 1]))
+      (i === 0 || letter === '\n' || isBoundary(letters[i - 1]))
         // add a word
         ? words.concat(letter)
         // otherwise add it to the last word
@@ -38,7 +37,7 @@ export const setRenderNode = (virtualWidth: number, pixelWidth: number) => (svgN
 
 export const getLetterWidthByRendering = (fontFamily: string, fontSize: number, letter: string): number | false => {
   if (!letterRenderNode) return false
-  setSvgAttribute(letterRenderNode, 'font-family', fontFamily)
+  letterRenderNode.setAttribute('font-family', fontFamily)
   setSvgAttribute(letterRenderNode, 'font-size', fontSize)
   letterRenderNode.textContent = letter
   const virtualLetterWidth = letterRenderNode.getComputedTextLength() / letterRenderConvertionFactor
@@ -51,31 +50,33 @@ const isLetterRenderable = (letter) => !unrenderableLetters.includes(letter)
 export const getLetterWidth = (fontFamily: string, fontSize: number) => (letter: string): number => {
   const cacheKey = letter + fontSize + fontFamily
   const cachedValue = cache.get(cacheKey)
-  if (cachedValue) return cachedValue
+  if (cachedValue !== undefined && cachedValue !== false) return cachedValue
   const renderedWidth = isLetterRenderable(letter)
     ? getLetterWidthByRendering(fontFamily, fontSize, letter)
     : false
   cache.set(cacheKey, renderedWidth)
-  if (renderedWidth) cache.set(cacheKey, renderedWidth)
-  return renderedWidth || calculateLetterWidth(fontSize)
+  if (renderedWidth !== false) cache.set(cacheKey, renderedWidth)
+  return renderedWidth === false
+    ? calculateLetterWidth(fontSize)
+    : renderedWidth
 }
 
-export const getWordWidth = (fontFamily: string, fontSize: number) =>
+export const getWordWidth = (fontFamily: string, fontSize: number) => (word) =>
   R.pipe(
     R.split(''),
     R.map(getLetterWidth(fontFamily, fontSize)),
     R.reduce(R.add, 0)
-  )
+  )(word)
 
-const calculateLetterWidth = (fontSize: number) => 0.43 * fontSize
+const calculateLetterWidth = (fontSize: number) => 0.6 * fontSize
 
 export const wrapText = (maxLineWidth: number, fontFamily: string, fontSize: number, text: string): Array<string> => {
   const getWordWidthB = getWordWidth(fontFamily, fontSize)
   return splitWords(text).reduce(
     (lines, word, i) =>
-      (i === 0) ||
+      (i === 0 || word === '\n') ||
       getWordWidthB(word) + getWordWidthB(R.last(lines)) > maxLineWidth
-        ? lines.concat(word)
+        ? lines.concat(word === '\n' ? ' ' : word)
         : R.update(lines.length - 1, R.last(lines) + word, lines),
     []
   )
