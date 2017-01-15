@@ -2,3 +2,7 @@ body {
   font-size: 8px;
   font: caption;
 }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}

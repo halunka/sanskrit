@@ -16,15 +16,15 @@ type Props = {
 
 export default observer(function Structure ({ advert, toolbox }: Props) {
   return (
-    <section>
-      <h2>{i18n.t['structure.title']}:</h2>
-      <figure className={styles.figure}>
-        <figcaption>{ i18n.t[`templates.${advert.template.name}`] }</figcaption>
+    <section className={styles.wrapper}>
+      <h2 className={styles.sectionTitle}>{i18n.t['structure.title']}</h2>
+      <figure className={`${styles.template}`}>
+        <figcaption className={styles.label}>{ i18n.t[`templates.${advert.template.name}`] }</figcaption>
         {advert.template.slots.map((slot, i) => (
           <Sortable
             sort
             key={i}
-            wrapperClass={styles.figure}
+            wrapperClass={`${styles.figure} ${styles.slot}`}
             wrapperElement='figure'
             element
             group={{ name: 'elements', pull: true, put: true }}
@@ -41,7 +41,6 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
             onRemove={({ item }) => {
               advert.removeElement(item.dataset.id)
             }}
-            ghostClass='element-ghost'
           >
             {slot.elements.map((element, i) => (
               <figure
@@ -49,8 +48,15 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
                 data-id={element.id} key={i}
                 onClick={() => { advert.setWizard(element.id) }}
                 >
-                <figcaption>{i18n.t[`elements.${element.type}`]}</figcaption>
-                <button onClick={catchEvent(() => { advert.removeElement(element.id) })}>x</button>
+                <figcaption className={styles.elementTitle}>
+                  {i18n.t[`elements.${element.type}`]}
+                </figcaption>
+                <button
+                  className={styles.delete}
+                  onClick={catchEvent(() => { advert.removeElement(element.id) })}
+                  >
+                  ×
+                </button>
               </figure>
             ))}
           </Sortable>

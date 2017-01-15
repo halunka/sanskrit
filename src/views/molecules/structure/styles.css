@@ -1,13 +1,81 @@
+.wrapper {
+  margin: 1rem 0;
+  max-width: 30vw;
+  box-shadow: 0px 1px 6px hsla(0, 0%, 0%, 0.12), 0px 1px 4px hsla(0, 0%, 0%, 0.12);
+  border-radius: 3px;
+}
+
+.sectionTitle {
+  margin: 0;
+  padding: 1rem;
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 40%);
+}
+
+.template {
+  position: relative;
+  margin: 0;
+  padding: 1rem 0 0 0;
+}
+
+.slot {
+  overflow: hidden;
+}
+
 .figure {
-  border: 1px solid hsl(0, 0%, 40%);
+  position: relative;
+  margin: 1rem;
+  box-shadow: 0px 1px 6px hsla(0, 0%, 0%, 0.12), 0px 1px 4px hsla(0, 0%, 0%, 0.12);
   border-radius: 3px;
 }
 
 .element {
-  display: block;
-  width: 100%;
+  flex: 1 1;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: calc(100% - 2rem);
+  height: 4rem;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 3px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: hsl(0, 0%, 98%);
+  box-shadow: 0px 1px 6px hsla(0, 0%, 0%, 0.12), 0px 1px 4px hsla(0, 0%, 0%, 0.12);
 }
 
-:global .element-ghost {
-  color: white;
+.elementTitle {
+  text-align: left;
+  font-weight: 600;
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-weight: 600;
+  line-height: 2rem;
+  padding: 0 1rem;
+}
+
+.delete {
+  position: absolute;
+  top: -.8rem;
+  right: -.8rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  border: none;
+  color: hsl(0, 0%, 30%);
+  border-radius: 100%;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0px 1px 6px hsla(0, 0%, 0%, 0.12), 0px 1px 4px hsla(0, 0%, 0%, 0.12);
+  outline: none;
+}
+
+.delete:hover {
+  cursor: pointer;
 }
