@@ -12,6 +12,7 @@ import mkAdvert from '../../../stores/advert'
 import mkToolbox from '../../../stores/toolbox'
 import importAdvert from '../../../utils/import'
 import * as storage from '../../../utils/storage'
+import {getLanguageFromNavigator} from '../../../utils/dom'
 
 import styles from './styles.css'
 
@@ -21,8 +22,9 @@ const storedAdvert = storage.load('advert')
 const advert = storedAdvert
   ? importAdvert(storedAdvert, toolbox)
   : mkAdvert(toolbox.templates[0])
+
 const storedLanguage = storage.load('language')
-if (storedLanguage) i18n.setLanguage(storedLanguage)
+i18n.setLanguage(storedLanguage || getLanguageFromNavigator())
 
 /* link up localStorage */
 const callExport = (a) => a.export()

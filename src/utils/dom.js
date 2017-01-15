@@ -32,3 +32,6 @@ export const getFilesFromEvent = (fn: string | false) => catchEvent((e: window.I
   })
   reader.readAsDataURL(file)
 })
+
+export const getLanguageFromNavigator = () =>
+  (R.path(['navigator', 'language'], window) || '').split('-')[0]
