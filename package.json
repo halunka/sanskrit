@@ -19,7 +19,6 @@
   "author": "Luca Nils Schmid <me@lucaschmid.net>",
   "license": "UNLICENSED",
   "devDependencies": {
-    "autoprefixer": "^6.6.1",
     "ava": "^0.17.0",
     "babel-core": "^6.21.0",
     "babel-eslint": "^7.1.1",
@@ -35,6 +34,7 @@
     "flow-bin": "^0.37.4",
     "flow-typed": "^2.0.0",
     "mock-local-storage": "^1.0.2",
+    "postcss-cssnext": "^2.9.0",
     "postcss-loader": "^1.2.1",
     "standard": "^8.6.0",
     "style-loader": "^0.13.1",

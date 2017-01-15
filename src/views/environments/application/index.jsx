@@ -15,6 +15,7 @@ import * as storage from '../../../utils/storage'
 import {getLanguageFromNavigator} from '../../../utils/dom'
 
 import styles from './styles.css'
+import '../../../styles'
 
 const toolbox = mkToolbox()
 // simply use the only available template for now
