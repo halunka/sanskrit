@@ -7,11 +7,11 @@ import type { Field } from '../field'
 
 export type SelectFieldT = Field<string>
 
-export default function mkSelectField <V> (data: { [string]: V }, value?: V): SelectFieldT {
-  return mkField({
+export default function mkSelectField <V> (data: { [string]: V }, value?: V, otherAttributes?: Object): SelectFieldT {
+  return mkField(Object.assign({
     type: 'select',
     validate: validateTruthy,
     data,
-    value,
-  })
+    value
+  }, otherAttributes))
 }

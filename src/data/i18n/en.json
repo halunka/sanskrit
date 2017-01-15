@@ -7,5 +7,10 @@
   "elements.paragraph": "Text",
   "elements.image": "Image",
   "errors.must-exist": "This field may not be empty.",
-  "please-choose": "Please choose"
+  "please-choose": "Please choose",
+  "field.lineHeight": "Line height",
+  "field.fontFamily": "Font",
+  "field.fontSize": "Font size",
+  "field.text": "Text",
+  "field.image": "Image"
 }

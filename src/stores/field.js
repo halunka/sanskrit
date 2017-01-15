@@ -38,7 +38,8 @@ export default function mkField <T> (field: FieldParams<T>): Field<T> {
     field,
     {
       type: asReference(field.type),
-      validate: asReference(field.validate)
+      validate: asReference(field.validate),
+      label: asReference(field.label)
     }
   ))
   return fieldElement

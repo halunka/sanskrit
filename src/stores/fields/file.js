@@ -10,12 +10,12 @@ type FileDescriptor = {|
   name: string
 |}
 
-export default function mkFileField (value?: FileDescriptor): FileFieldT {
-  const field = mkField({
+export default function mkFileField (value?: FileDescriptor, otherAttributes?: Object): FileFieldT {
+  const field = mkField(Object.assign({
     type: 'file',
     // TODO: proper validation
     validate: () => false,
     value
-  })
+  }, otherAttributes))
   return field
 }

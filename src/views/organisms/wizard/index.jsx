@@ -33,7 +33,7 @@ export default observer(function Wizard ({ advert }: Props) {
         {advert.wizardElement && R.pipe(
           R.mapObjIndexed((field, key) => (
             <fieldset key={key}>
-              <label>label</label>
+              <label>{i18n.t[field.label]}</label>
               {h(
                 fields[field.type],
                 field

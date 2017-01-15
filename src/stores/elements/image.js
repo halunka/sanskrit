@@ -49,7 +49,7 @@ export default function mkImage (slot: string, data?: ImageDataParams = {}, id?:
       },
       position: { left: 0 },
       data: {
-        image: mkFileField(data.image)
+        image: mkFileField(data.image, { label: 'field.image' })
       }
     },
     {
