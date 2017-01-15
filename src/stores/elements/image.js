@@ -10,8 +10,6 @@ import mkElement from '../element'
 import { computedFromField } from '../../utils'
 import mkFileField from '../fields/file'
 
-import kilroy from '../../data/images/Kilroy_was_here_re-drawn.gif'
-
 import type { ElementT } from '../element'
 import type { FileFieldT } from '../fields/file'
 
@@ -29,7 +27,7 @@ type ImageT = ElementT<ImageData> & {
 }
 
 const defaultValues: ImageData = {
-  image: kilroy
+  image: ''
 }
 
 export default function mkImage (slot: string, data?: ImageDataParams = {}, id?: string): ImageT {
