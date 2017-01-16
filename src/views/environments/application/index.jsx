@@ -49,8 +49,8 @@ export default observer(function Application () {
         {advert.wizardElement && (
           <Wizard advert={advert} />
         )}
+        <LanguageSwitcher i18n={i18n} />
       </sidebar>
-      <LanguageSwitcher i18n={i18n} />
     </div>
   )
 })

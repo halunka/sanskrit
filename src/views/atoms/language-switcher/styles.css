@@ -1,0 +1,27 @@
+.wrapper {
+  float: right;
+}
+
+.button {
+  position: relative;
+  padding: 0 .5rem;
+}
+
+.button:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+.button::after {
+  content: '/';
+  position: absolute;
+  top: 0;
+  right: -.25rem;
+  font-size: 2rem;
+  color: hsl(200, 80%, 50%);
+  font-weight: 200;
+}
+
+.button:last-child::after {
+  content: none;
+}
