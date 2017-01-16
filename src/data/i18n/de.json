@@ -12,5 +12,6 @@
   "field.fontFamily": "Schriftart",
   "field.fontSize": "Schriftgrösse",
   "field.text": "Text",
-  "field.image": "Bild (JPEG, PNG)"
+  "field.image": "Bild (JPEG, PNG)",
+  "field.fontWeight": "Schriftschnitt"
 }

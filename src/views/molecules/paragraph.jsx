@@ -16,6 +16,7 @@ export default observer(function Paragraph ({ advert, element }: Props) {
     <text
       font-size={element.fontSize}
       font-family={element.fontFamily}
+      font-weight={element.fontWeight}
       ref={waitForParents(element.hasRendered)}
       >
       {element.lines.map((line, i) =>

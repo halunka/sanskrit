@@ -49,7 +49,8 @@ const defaultValues = {
   text: '',
   fontSize: 1,
   lineHeight: 1.2,
-  fontFamily: 'Helvetica Neue'
+  fontFamily: 'Helvetica Neue',
+  fontWeight: '400'
 }
 
 const computedFromParagraph = computedFromField(defaultValues)
@@ -80,8 +81,17 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
             'Helvetica Neue': 'Helvetica Neue',
             'Times': 'Times'
           },
-          defaultValues.fontFamily,
+          data.fontFamily || defaultValues.fontFamily,
           { label: 'field.fontFamily' }
+        ),
+        fontWeight: mkSelectField(
+          {
+            'light': '300',
+            'medium': '400',
+            'bold': '600'
+          },
+          data.fontWeight || defaultValues.fontWeight,
+          { label: 'field.fontWeight' }
         ),
         lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight, { label: 'field.lineHeight' })
       }
@@ -93,6 +103,7 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
       fontSize: computedFromParagraph('fontSize'),
       lineHeight: computedFromParagraph('lineHeight'),
       fontFamily: computedFromParagraph('fontFamily'),
+      fontWeight: computedFromParagraph('fontWeight'),
       lines: computed(() => {
         /* only calculate the real lines after the paragraph has been rendered */
         if (!paragraph.rendered) return []

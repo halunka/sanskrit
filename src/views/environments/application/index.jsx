@@ -23,6 +23,7 @@ const storedAdvert = storage.load('advert')
 const advert = storedAdvert
   ? importAdvert(storedAdvert, toolbox)
   : mkAdvert(toolbox.templates[0])
+window.advert = advert
 
 const storedLanguage = storage.load('language')
 i18n.setLanguage(storedLanguage || getLanguageFromNavigator())
