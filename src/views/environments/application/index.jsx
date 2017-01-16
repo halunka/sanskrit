@@ -23,6 +23,7 @@ const storedAdvert = storage.load('advert')
 const advert = storedAdvert
   ? importAdvert(storedAdvert, toolbox)
   : mkAdvert(toolbox.templates[0])
+window.advert = advert
 
 const storedLanguage = storage.load('language')
 i18n.setLanguage(storedLanguage || getLanguageFromNavigator())
@@ -49,8 +50,8 @@ export default observer(function Application () {
         {advert.wizardElement && (
           <Wizard advert={advert} />
         )}
+        <LanguageSwitcher i18n={i18n} />
       </sidebar>
-      <LanguageSwitcher i18n={i18n} />
     </div>
   )
 })

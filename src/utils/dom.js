@@ -36,3 +36,8 @@ export const getFilesFromEvent = (fn: (fileName: string, file: string | false) =
 
 export const getLanguageFromNavigator = () =>
   (R.path(['navigator', 'language'], window) || '').split('-')[0]
+
+export const indexOfElement = (element, i = 0) =>
+  element.previousSibling
+    ? i + indexOfElement(element.previousSibling, i + 1)
+    : i

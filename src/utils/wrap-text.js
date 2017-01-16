@@ -68,16 +68,28 @@ export const getWordWidth = (fontFamily: string, fontSize: number) => (word) =>
     R.reduce(R.add, 0)
   )(word)
 
-const calculateLetterWidth = (fontSize: number) => 0.6 * fontSize
+const calculateLetterWidth = (fontSize: number) => 0.8 * fontSize
 
 export const wrapText = (maxLineWidth: number, fontFamily: string, fontSize: number, text: string): Array<string> => {
   const getWordWidthB = getWordWidth(fontFamily, fontSize)
-  return splitWords(text).reduce(
-    (lines, word, i) =>
-      (i === 0 || word === '\n') ||
-      getWordWidthB(word) + getWordWidthB(R.last(lines)) > maxLineWidth
-        ? lines.concat(word === '\n' ? ' ' : word)
-        : R.update(lines.length - 1, R.last(lines) + word, lines),
-    []
-  )
+  return splitWords(text)
+    .reduce(
+      (lines, word, i) =>
+        i === 0 ||
+        word === '\n' ||
+        R.last(lines) === '\n' ||
+        getWordWidthB(word) + getWordWidthB(R.last(lines)) > maxLineWidth
+          ? lines.concat(word)
+          : R.update(lines.length - 1, R.last(lines) + word, lines),
+      []
+    )
+    .reduce(
+      (lines, line, i, rawLines) =>
+        line === '\n'
+          ? rawLines[i + 1] === '\n'
+            ? lines.concat(' ')
+            : lines
+          : lines.concat(line),
+      []
+    )
 }

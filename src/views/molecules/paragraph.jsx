@@ -16,12 +16,13 @@ export default observer(function Paragraph ({ advert, element }: Props) {
     <text
       font-size={element.fontSize}
       font-family={element.fontFamily}
+      font-weight={element.fontWeight}
       ref={waitForParents(element.hasRendered)}
       >
       {element.lines.map((line, i) =>
         <tspan
           x={element.position.left}
-          y={element.position.top + element.lineHeight * (i + 1)}
+          y={element.position.top + element.lineHeight * (i + 1) - (element.lineHeight / 2)}
           key={i}
           >
           {line}

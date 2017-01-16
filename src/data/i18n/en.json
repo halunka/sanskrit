@@ -12,5 +12,6 @@
   "field.fontFamily": "Font",
   "field.fontSize": "Font size",
   "field.text": "Text",
-  "field.image": "Image"
+  "field.image": "Image (JPEG, PNG)",
+  "field.fontWeight": "Font weight"
 }
