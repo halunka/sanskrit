@@ -136,6 +136,7 @@ test('export should contain all exportable attributes', t => {
           text: advert.elements[0].text,
           fontSize: advert.elements[0].fontSize,
           lineHeight: advert.elements[0].lineHeight,
+          fontWeight: advert.elements[0].fontWeight,
           fontFamily: advert.elements[0].fontFamily
         }
       },
@@ -147,6 +148,7 @@ test('export should contain all exportable attributes', t => {
           text: advert.elements[1].text,
           fontSize: advert.elements[1].fontSize,
           lineHeight: advert.elements[1].lineHeight,
+          fontWeight: advert.elements[0].fontWeight,
           fontFamily: advert.elements[0].fontFamily
         }
       }
