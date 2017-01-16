@@ -84,6 +84,17 @@ test('newElementWizard should open the wizard and add a new element', t => {
   t.is(advert.elements[0].id, element.id)
 })
 
+test('newElementWizard add the new element at the set position', t => {
+  const toolbox = mkToolbox()
+  const advert = mkAdvert(toolbox.templates[0])
+  advert.addElement(newElement())
+  advert.addElement(newElement())
+  const element = newElement()
+  advert.newElementWizard(element, 1)
+  t.is(advert.wizard, element.id)
+  t.is(advert.elements[1].id, element.id)
+})
+
 test('closeWizard should close the wizard', t => {
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])

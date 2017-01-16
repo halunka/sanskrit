@@ -28,12 +28,13 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
             wrapperElement='figure'
             element
             group={{ name: 'elements', pull: true, put: true }}
-            onAdd={({ item, newIndex }) => {
+            onAdd={({ item }) => {
               /* get the `type` from `dataset` of the element that was dropped
                * into the slot and pass the slot id to the element factory with
                * that type. then open a wizard with that element
                */
-              advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id), newIndex)
+              const index = item.parent.children.indexOf(item)
+              advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id), index)
             }}
             onSort={({ item, newIndex }) => {
               advert.moveElement(item.dataset.id, newIndex)
