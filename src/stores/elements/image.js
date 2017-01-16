@@ -4,8 +4,7 @@
  * It would be a lot better not to store the files as strings... but for now,
  * this is the most economical way to implement it.
  */
-import { computed } from 'mobx'
-import R from 'ramda'
+import { computed, asReference } from 'mobx'
 import uuid from 'uuid'
 
 import mkElement from '../element'
@@ -49,14 +48,17 @@ export default function mkImage (slot: string, data?: ImageDataParams = {}, id?:
       },
       position: { left: 0 },
       data: {
-        image: mkFileField(data.image, { label: 'field.image' })
+        image: mkFileField(data.image, {
+          label: 'field.image',
+          allowedFormats: asReference(['.jpg', '.jpeg', '.png', '.svg'])
+        })
       }
     },
     {
       image: computedFromField(defaultValues)('image', 'content'),
       fileName: computedFromField(defaultValues)('image', 'name'),
       preview: computed(() => cutTo(image.fileName)),
-      padding: 2
+      padding: asReference(2)
     }
   )
   return image

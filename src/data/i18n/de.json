@@ -1,6 +1,6 @@
 {
   "save": "Speichern",
-  "wizard.title": "Wizard",
+  "wizard.title": "Zauberer",
   "toolbox.title": "Wekzeugskiste",
   "structure.title": "Struktur",
   "templates.simple-immo": "Immobilieninserat",
@@ -12,5 +12,5 @@
   "field.fontFamily": "Schriftart",
   "field.fontSize": "Schriftgrösse",
   "field.text": "Text",
-  "field.image": "Bild"
+  "field.image": "Bild (JPEG, PNG)"
 }

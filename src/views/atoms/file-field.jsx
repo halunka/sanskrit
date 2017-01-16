@@ -7,6 +7,6 @@ import type { FileFieldT } from '../../stores/fields/file'
 
 export default observer(function FileField (field: FileFieldT) {
   return (
-    <input type='file' accept='image/*' onChange={getFilesFromEvent(field.update)} />
+    <input type='file' accept={field.allowedFormats.join(',')} onChange={getFilesFromEvent(field.update)} />
   )
 })
