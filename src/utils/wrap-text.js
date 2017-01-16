@@ -68,7 +68,7 @@ export const getWordWidth = (fontFamily: string, fontSize: number) => (word) =>
     R.reduce(R.add, 0)
   )(word)
 
-const calculateLetterWidth = (fontSize: number) => 0.6 * fontSize
+const calculateLetterWidth = (fontSize: number) => 0.8 * fontSize
 
 export const wrapText = (maxLineWidth: number, fontFamily: string, fontSize: number, text: string): Array<string> => {
   const getWordWidthB = getWordWidth(fontFamily, fontSize)
