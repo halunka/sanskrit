@@ -3,7 +3,7 @@ import { h } from 'preact'
 
 import Sortable from '../../atoms/sortable'
 import i18n from '../../../stores/i18n'
-import { catchEvent } from '../../../utils/dom'
+import { catchEvent, indexOfElement } from '../../../utils/dom'
 import styles from './styles.css'
 
 import type { Advert } from '../../../stores/advert'
@@ -33,7 +33,7 @@ export default observer(function Structure ({ advert, toolbox }: Props) {
                * into the slot and pass the slot id to the element factory with
                * that type. then open a wizard with that element
                */
-              const index = item.parent.children.indexOf(item)
+              const index = indexOfElement(item)
               advert.newElementWizard(toolbox.elementFactories[item.dataset.type](slot.id), index)
             }}
             onSort={({ item, newIndex }) => {
