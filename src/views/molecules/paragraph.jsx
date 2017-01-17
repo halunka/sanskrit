@@ -22,7 +22,7 @@ export default observer(function Paragraph ({ advert, element }: Props) {
       {element.lines.map((line, i) =>
         <tspan
           x={element.position.left}
-          y={element.position.top + element.lineHeight * (i + 1) - (element.lineHeight / 2)}
+          y={element.position.top + element.lineHeight * (i + 1)}
           key={i}
           >
           {line}
