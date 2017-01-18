@@ -124,7 +124,7 @@ test('export should contain all exportable attributes', t => {
   advert.addElement(mkParagraph(advert.template.slots[0].id))
   advert.addElement(mkParagraph(advert.template.slots[0].id))
   advert.setWizard(advert.elements[0].id)
-  t.deepEqual(JSON.parse(advert.export()), {
+  t.deepEqual(JSON.parse(advert.export()), JSON.parse(JSON.stringify({
     template: advert.template.id,
     wizard: advert.wizard,
     elements: [
@@ -135,7 +135,7 @@ test('export should contain all exportable attributes', t => {
         data: {
           text: advert.elements[0].text,
           fontSize: advert.elements[0].fontSize,
-          lineHeight: advert.elements[0].lineHeight,
+          lineHeight: advert.elements[0].data.lineHeight.value,
           fontWeight: advert.elements[0].fontWeight,
           fontFamily: advert.elements[0].fontFamily
         }
@@ -147,13 +147,13 @@ test('export should contain all exportable attributes', t => {
         data: {
           text: advert.elements[1].text,
           fontSize: advert.elements[1].fontSize,
-          lineHeight: advert.elements[1].lineHeight,
-          fontWeight: advert.elements[0].fontWeight,
-          fontFamily: advert.elements[0].fontFamily
+          lineHeight: advert.elements[1].data.lineHeight.value,
+          fontWeight: advert.elements[1].fontWeight,
+          fontFamily: advert.elements[1].fontFamily
         }
       }
     ]
-  })
+  })))
 })
 
 test('sizeInPx should be an adverts size, as defined in the template, in pixels', t => {

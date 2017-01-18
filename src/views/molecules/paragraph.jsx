@@ -12,17 +12,18 @@ type Props = {
 }
 
 export default observer(function Paragraph ({ advert, element }: Props) {
+  const { fontWeight, fontSize, fontFamily, lineHeight, position, hasRendered, lines } = element
   return (
     <text
-      font-size={element.fontSize}
-      font-family={element.fontFamily}
-      font-weight={element.fontWeight}
-      ref={waitForParents(element.hasRendered)}
+      font-size={fontSize}
+      font-family={fontFamily}
+      font-weight={fontWeight}
+      ref={waitForParents(hasRendered)}
       >
-      {element.lines.map((line, i) =>
+      {lines.map((line, i) =>
         <tspan
-          x={element.position.left}
-          y={element.position.top + element.lineHeight * (i + 1)}
+          x={position.left}
+          y={position.top + lineHeight * (i + 1) - (lineHeight - fontSize) / 2}
           key={i}
           >
           {line}

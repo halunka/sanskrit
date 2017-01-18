@@ -17,20 +17,20 @@ test('validateTruthy should return false for truthy values', t => {
 
 test('validateNumber should return an error for things that can\'t be parsed as numbers', t => {
   t.true(typeof validateNumber('asdf') === 'string')
+  t.true(typeof validateNumber('') === 'string')
+  t.true(typeof validateNumber('1') === 'string')
+  t.true(typeof validateNumber('1.235') === 'string')
 })
 
 test('validateNumber should return false for parseble numbers', t => {
   t.false(validateNumber(1))
-  t.false(validateNumber(''))
-  t.false(validateNumber('1'))
-  t.false(validateNumber('1.235'))
 })
 
 test('combine should return all errors given by the passed validators for a certain value', t => {
-  t.deepEqual(combine(validateNumber, validateTruthy)('1'), false)
+  t.deepEqual(combine(validateNumber, validateTruthy)(11), false)
   t.deepEqual(
     combine(validateNumber, validateTruthy)(''),
-    [ 'errors.must-exist' ]
+    [ 'errors.must-numeric', 'errors.must-exist' ]
   )
   t.deepEqual(
     combine(validateNumber, validateTruthy)('asdf'),

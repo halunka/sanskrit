@@ -72,7 +72,9 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
           update: action((newValue: number) => {
             const oldFontSize = paragraph.fontSize
             paragraph.data.fontSize.value = newValue
-            paragraph.data.lineHeight.value = newValue - oldFontSize + paragraph.lineHeight
+            /* Line height should be 120% of the font size by default */
+            paragraph.data.lineHeight.value =
+              (newValue - oldFontSize) * 1.2 + (paragraph.data.lineHeight.value || 1)
           }),
           label: 'field.fontSize'
         }),
@@ -93,7 +95,7 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
           data.fontWeight || defaultValues.fontWeight,
           { label: 'field.fontWeight' }
         ),
-        lineHeight: mkNumberField(data.lineHeight || defaultValues.lineHeight, { label: 'field.lineHeight' })
+        lineHeight: mkNumberField(data.lineHeight, { label: 'field.lineHeight' })
       }
     },
     {

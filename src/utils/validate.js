@@ -10,8 +10,8 @@ export const validateTruthy: Validator = R.cond([
 ])
 
 export const validateNumber: Validator = R.cond([
-  [v => Number.isNaN(Number(v)), R.always('errors.must-numeric')],
-  [R.T, R.F]
+  [R.is(Number), R.F],
+  [R.T, R.always('errors.must-numeric')]
 ])
 
 export const combine = (...validators: Array<Validator>) => (value: any): ValidatorResult => {
