@@ -112,10 +112,10 @@ test('wizardElement should be the element with the id of `wizard`', t => {
   t.is(advert.wizardElement.id, advert.elements[0].id)
 })
 
-test('export should return valid JSON', t => {
+test('export should return a JSON stringifyable object', t => {
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])
-  t.true(typeof JSON.parse(advert.export()) === 'object')
+  t.true(typeof advert.export() === 'object')
 })
 
 test('export should contain all exportable attributes', t => {
@@ -124,7 +124,7 @@ test('export should contain all exportable attributes', t => {
   advert.addElement(mkParagraph(advert.template.slots[0].id))
   advert.addElement(mkParagraph(advert.template.slots[0].id))
   advert.setWizard(advert.elements[0].id)
-  t.deepEqual(JSON.parse(advert.export()), JSON.parse(JSON.stringify({
+  t.deepEqual(advert.export(), {
     template: advert.template.id,
     wizard: advert.wizard,
     elements: [
@@ -153,7 +153,7 @@ test('export should contain all exportable attributes', t => {
         }
       }
     ]
-  })))
+  })
 })
 
 test('sizeInPx should be an adverts size, as defined in the template, in pixels', t => {

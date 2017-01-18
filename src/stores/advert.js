@@ -125,7 +125,7 @@ export default function mkAdvert (template: Template, wizard?: string): Advert {
       if (index === -1) return null
       advert.elements.splice(index, 1)
     }),
-    export: asReference(() => JSON.stringify({
+    export: asReference(() => ({
       template: advert.template.id,
       wizard: advert.wizard,
       elements: R.map(R.pipe(

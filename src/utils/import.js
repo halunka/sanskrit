@@ -1,5 +1,3 @@
-import R from 'ramda'
-
 import mkAdvert from '../stores/advert'
 import mkParagraph from '../stores/elements/paragraph'
 import mkImage from '../stores/elements/image'
@@ -14,7 +12,7 @@ const elementFactories = {
 }
 
 export default (jsonData: string, toolbox: ToolboxT): Advert => {
-  const data = JSON.parse(jsonData)
+  const data = jsonData
   const template = toolbox.templates.find(withId(data.template))
   if (!template) throw new Error('Invalid template id')
 
