@@ -4,7 +4,7 @@
 import { h } from 'preact'
 import { observer } from 'mobx-preact'
 
-import Paragraph from '../../molecules/paragraph'
+import Text from '../../molecules/text'
 import Image from '../../molecules/image'
 import type { Advert } from '../../../stores/advert'
 import { setRenderNode } from '../../../utils/wrap-text'
@@ -16,7 +16,7 @@ type Props = {
 }
 
 const elementViews = {
-  paragraph: Paragraph,
+  text: Text,
   image: Image
 }
 

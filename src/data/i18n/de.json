@@ -4,7 +4,7 @@
   "toolbox.title": "Wekzeugskiste",
   "structure.title": "Struktur",
   "templates.simple-immo": "Immobilieninserat",
-  "elements.paragraph": "Text",
+  "elements.text": "Text",
   "elements.image": "Bild",
   "errors.must-exist": "Dieses feld darf nicht leer sein.",
   "please-choose": "Bitte wählen",

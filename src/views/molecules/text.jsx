@@ -3,15 +3,15 @@ import { observer } from 'mobx-preact'
 
 import { waitForParents } from '../../utils/dom'
 
-import type { ParagraphT } from '../../stores/elements/paragraph'
+import type { TextT } from '../../stores/elements/text'
 import type { Advert } from '../../stores/advert'
 
 type Props = {
-  element: ParagraphT,
+  element: TextT,
   advert: Advert
 }
 
-export default observer(function Paragraph ({ advert, element }: Props) {
+export default observer(function Text ({ advert, element }: Props) {
   const { fontWeight, fontSize, fontFamily, lineHeight, position, hasRendered, lines } = element
   return (
     <text

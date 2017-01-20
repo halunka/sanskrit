@@ -13,13 +13,13 @@ import type { NumberFieldT } from '../fields/number'
 import type { FPosition, FSize } from '../../utils'
 import type { ElementT } from '../element'
 
-type ParagraphData = {
+type TextData = {
   text: TextFieldT,
   fontSize: NumberFieldT,
   lineHeight: NumberFieldT,
 }
 
-export type ParagraphT = ElementT<ParagraphData> & {
+export type TextT = ElementT<TextData> & {
   id: string,
   type: string,
   slot?: string,
@@ -34,12 +34,12 @@ export type ParagraphT = ElementT<ParagraphData> & {
   fontSize: number,
   lineHeight: number,
 
-  /* contains the input parameters of the paragraph */
-  data: ParagraphData,
+  /* contains the input parameters of the text */
+  data: TextData,
   lines: Array<string>
 }
 
-type ParagraphDataParams = {
+type TextDataParams = {
   text?: string,
   fontSize?: number,
   lineHeight?: number,
@@ -53,28 +53,28 @@ const defaultValues = {
   fontWeight: '400'
 }
 
-const computedFromParagraph = computedFromField(defaultValues)
+const computedFromText = computedFromField(defaultValues)
 
-export default function mkParagraph (slot: string, data?: ParagraphDataParams = {}, id?: string): ParagraphT {
-  const paragraph = mkElement(
+export default function mkText (slot: string, data?: TextDataParams = {}, id?: string): TextT {
+  const text = mkElement(
     {
       id: id || uuid(),
       slot,
-      type: 'paragraph',
+      type: 'text',
       size: {
         autoWidth: true,
-        height: computed(() => paragraph.lineHeight * paragraph.lines.length + paragraph.padding * 2)
+        height: computed(() => text.lineHeight * text.lines.length + text.padding * 2)
       },
       position: { left: 0 },
       data: {
         text: mkTextField(data.text || defaultValues.text, { label: 'field.text' }),
         fontSize: mkNumberField(data.fontSize || defaultValues.fontSize, {
           update: action((newValue: number) => {
-            const oldFontSize = paragraph.fontSize
-            paragraph.data.fontSize.value = newValue
+            const oldFontSize = text.fontSize
+            text.data.fontSize.value = newValue
             /* Line height should be 120% of the font size by default */
-            paragraph.data.lineHeight.value =
-              (newValue - oldFontSize) * 1.2 + (paragraph.data.lineHeight.value || 1)
+            text.data.lineHeight.value =
+              (newValue - oldFontSize) * 1.2 + (text.data.lineHeight.value || 1)
           }),
           label: 'field.fontSize'
         }),
@@ -101,26 +101,26 @@ export default function mkParagraph (slot: string, data?: ParagraphDataParams = 
     {
       padding: 1,
       rendered: false,
-      text: computedFromParagraph('text'),
-      fontSize: computedFromParagraph('fontSize'),
-      lineHeight: computedFromParagraph('lineHeight'),
-      fontFamily: computedFromParagraph('fontFamily'),
-      fontWeight: computedFromParagraph('fontWeight'),
+      text: computedFromText('text'),
+      fontSize: computedFromText('fontSize'),
+      lineHeight: computedFromText('lineHeight'),
+      fontFamily: computedFromText('fontFamily'),
+      fontWeight: computedFromText('fontWeight'),
       lines: computed(() => {
-        /* only calculate the real lines after the paragraph has been rendered */
-        if (!paragraph.rendered) return []
+        /* only calculate the real lines after the text has been rendered */
+        if (!text.rendered) return []
         return wrapText(
-          paragraph.size.width,
-          paragraph.fontFamily,
-          paragraph.fontSize,
-          paragraph.text
+          text.size.width,
+          text.fontFamily,
+          text.fontSize,
+          text.text
         )
       }),
       hasRendered: asReference(() => {
-        paragraph.rendered = true
+        text.rendered = true
       }),
-      preview: computed(() => cutTo(paragraph.text))
+      preview: computed(() => cutTo(text.text))
     }
   )
-  return paragraph
+  return text
 }

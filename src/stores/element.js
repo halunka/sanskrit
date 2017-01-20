@@ -2,10 +2,10 @@ import { observable, asReference, computed } from 'mobx'
 import R from 'ramda'
 
 import type { FPosition, Position, FSize, Size } from '../utils'
-import type { ParagraphT } from './elements/paragraph'
+import type { TextT } from './elements/text'
 
 // An intersection of all element types
-export type ElementA = ParagraphT
+export type ElementA = TextT
 
 export type ElementT<T> = {
   type: string,

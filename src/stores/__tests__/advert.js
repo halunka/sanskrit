@@ -4,7 +4,7 @@ import uuid from 'uuid'
 import mkAdvert from '../advert'
 import mkToolbox from '../toolbox'
 import mkElement from '../element'
-import mkParagraph from '../elements/paragraph'
+import mkText from '../elements/text'
 
 const newElement = (x) => mkElement(Object.assign({
   type: '',
@@ -121,8 +121,8 @@ test('export should return a JSON stringifyable object', t => {
 test('export should contain all exportable attributes', t => {
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])
-  advert.addElement(mkParagraph(advert.template.slots[0].id))
-  advert.addElement(mkParagraph(advert.template.slots[0].id))
+  advert.addElement(mkText(advert.template.slots[0].id))
+  advert.addElement(mkText(advert.template.slots[0].id))
   advert.setWizard(advert.elements[0].id)
   t.deepEqual(advert.export(), {
     template: advert.template.id,
@@ -171,12 +171,12 @@ test('viewBox should be an adverts SVG viewbox dimensions', t => {
 test('valid should show wether or not all values in an adverts element are valid', t => {
   const toolbox = mkToolbox()
   const advert = mkAdvert(toolbox.templates[0])
-  const paragraph = mkParagraph(toolbox.templates[0].slots[0].id)
-  advert.addElement(paragraph)
+  const text = mkText(toolbox.templates[0].slots[0].id)
+  advert.addElement(text)
   t.false(advert.valid)
-  paragraph.data.fontSize.update('asdf')
+  text.data.fontSize.update('asdf')
   t.false(advert.valid)
-  paragraph.data.fontSize.update(12)
-  paragraph.data.text.update('asdf')
+  text.data.fontSize.update(12)
+  text.data.text.update('asdf')
   t.true(advert.valid)
 })

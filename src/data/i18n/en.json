@@ -4,7 +4,7 @@
   "toolbox.title": "Toolbox",
   "structure.title": "Structure",
   "templates.simple-immo": "Real Estate Advert",
-  "elements.paragraph": "Text",
+  "elements.text": "Text",
   "elements.image": "Image",
   "errors.must-exist": "This field may not be empty.",
   "please-choose": "Please choose",

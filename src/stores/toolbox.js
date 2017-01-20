@@ -1,6 +1,6 @@
 import mkTemplate from './template'
 import mkElementSlot from './element-slot'
-import mkParagraph from './elements/paragraph'
+import mkText from './elements/text'
 import mkImage from './elements/image'
 
 import type { Template } from './template'
@@ -30,7 +30,7 @@ export default function mkToolbox (): ToolboxT {
     ],
     /* just because it sound cool... */
     elementFactories: {
-      paragraph: mkParagraph,
+      text: mkText,
       image: mkImage
     }
   }
