@@ -31,20 +31,24 @@ export const setRenderNode = (virtualWidth: number, pixelWidth: number) => (svgN
   letterRenderConvertionFactor = pixelWidth / virtualWidth
 
   letterRenderNode = createSvgElement('text')
-  letterRenderNode.setAttribute('style', 'opacity: 0;')
+  letterRenderNode.setAttribute('opacity', 0)
   svgNode.appendChild(letterRenderNode)
 }
 
 export const getLetterWidthByRendering = (fontFamily: string, fontSize: number, letter: string): number | false => {
   if (!letterRenderNode) return false
   letterRenderNode.setAttribute('font-family', fontFamily)
-  setSvgAttribute(letterRenderNode, 'font-size', fontSize)
-  letterRenderNode.textContent = letter
-  const virtualLetterWidth = letterRenderNode.getComputedTextLength() / letterRenderConvertionFactor
-  return virtualLetterWidth
+  letterRenderNode.setAttribute('style', `font-size: ${fontSize};`)
+  letterRenderNode.textContent = letter === ' '
+    ? 'l l'
+    : letter
+  const virtualLetterWidth = letterRenderNode.getComputedTextLength()
+  return letter === ' '
+    ? virtualLetterWidth - (getLetterWidth(fontFamily, fontSize)('l') * 2)
+    : virtualLetterWidth
 }
 
-const unrenderableLetters = [' ']
+const unrenderableLetters = []
 const isLetterRenderable = (letter) => !unrenderableLetters.includes(letter)
 
 export const getLetterWidth = (fontFamily: string, fontSize: number) => (letter: string): number => {
