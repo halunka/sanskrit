@@ -1,7 +1,11 @@
 import R from 'ramda'
+import Hypher from 'hypher'
+import germanDictionary from 'hyphenation.de'
 
 import { createSvgElement, setSvgAttribute } from './dom'
 import mkCache from './cache'
+
+const hypher = new Hypher(germanDictionary)
 
 export const isBoundary = (l: string) => !!l.match(/\W/)
 
@@ -74,17 +78,44 @@ export const getWordWidth = (fontFamily: string, fontSize: number) => (word) =>
 
 const calculateLetterWidth = (fontSize: number) => 0.8 * fontSize
 
+export const silablesFitIn = (fontFamily: string, fontSize: number, silables: Array<string>, maxWidth: number) =>
+  silables.reduce(
+    ([left, right, width], silable) => {
+      if (width >= maxWidth) return [left, right + silable, width]
+      const newWidth = getWordWidth(fontFamily, fontSize)(silable) + width
+      return newWidth > maxWidth
+        /* return the maxWidth as the current `width` to prevent more silables beeing added */
+        ? [left, right + silable, maxWidth]
+        : [left.substr(0, left.length - 1) + silable + '-', right, newWidth]
+    },
+    ['', '', getLetterWidth(fontFamily, fontSize)('-')]
+  )
+
 export const wrapText = (maxLineWidth: number, fontFamily: string, fontSize: number, text: string): Array<string> => {
   const getWordWidthB = getWordWidth(fontFamily, fontSize)
   return splitWords(text)
     .reduce(
-      (lines, word, i) =>
-        i === 0 ||
-        word === '\n' ||
-        R.last(lines) === '\n' ||
-        getWordWidthB(word) + getWordWidthB(R.last(lines)) > maxLineWidth
-          ? lines.concat(word)
-          : R.update(lines.length - 1, R.last(lines) + word, lines),
+      (lines, word, i) => {
+        if (
+          i === 0 ||
+          word === '\n' ||
+          R.last(lines) === '\n'
+        ) return lines.concat(word)
+
+        const lineWidth = getWordWidthB(R.last(lines))
+        if (getWordWidthB(word) + lineWidth > maxLineWidth) {
+          const silables = hypher.hyphenate(word)
+          const [ fittingSilablesWithHyphen, leftOverSilables ] =
+            silablesFitIn(fontFamily, fontSize, silables, maxLineWidth - lineWidth)
+          return R.update(
+            lines.length - 1,
+            R.last(lines) + fittingSilablesWithHyphen,
+            lines.concat(leftOverSilables)
+          )
+        } else {
+          return R.update(lines.length - 1, R.last(lines) + word, lines)
+        }
+      },
       []
     )
     .reduce(

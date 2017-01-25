@@ -43,6 +43,8 @@
     "webpack-dev-server": "beta"
   },
   "dependencies": {
+    "hyphenation.de": "^0.2.1",
+    "hypher": "^0.2.5",
     "mobx": "^2.7.0",
     "mobx-preact": "^0.3.0",
     "preact": "^7.1.0",
