@@ -39,15 +39,18 @@ export const setRenderNode = (virtualWidth: number, pixelWidth: number) => (svgN
   svgNode.appendChild(letterRenderNode)
 }
 
+// TODO there are some other unicode chars that don't have a width
+const isSpace = R.contains(R.__, [' '])
+
 export const getLetterWidthByRendering = (fontFamily: string, fontSize: number, letter: string): number | false => {
   if (!letterRenderNode) return false
   letterRenderNode.setAttribute('font-family', fontFamily)
   letterRenderNode.setAttribute('style', `font-size: ${fontSize};`)
-  letterRenderNode.textContent = letter === ' '
-    ? 'l l'
+  letterRenderNode.textContent = isSpace(letter)
+    ? `l${letter}l`
     : letter
   const virtualLetterWidth = letterRenderNode.getComputedTextLength()
-  return letter === ' '
+  return isSpace(letter)
     ? virtualLetterWidth - (getLetterWidth(fontFamily, fontSize)('l') * 2)
     : virtualLetterWidth
 }
@@ -69,12 +72,16 @@ export const getLetterWidth = (fontFamily: string, fontSize: number) => (letter:
     : renderedWidth
 }
 
-export const getWordWidth = (fontFamily: string, fontSize: number) => (word) =>
+const cutLastSpace = (word) =>
+  isSpace(word.substr(-1))
+    ? word.substr(0, word.length - 1)
+    : word
+export const getWordWidth = (fontFamily: string, fontSize: number) => (word, onLineEnd) =>
   R.pipe(
     R.split(''),
     R.map(getLetterWidth(fontFamily, fontSize)),
     R.reduce(R.add, 0)
-  )(word)
+  )(onLineEnd ? cutLastSpace(word) : word)
 
 const calculateLetterWidth = (fontSize: number) => 0.8 * fontSize
 
@@ -103,7 +110,7 @@ export const wrapText = (maxLineWidth: number, fontFamily: string, fontSize: num
         ) return lines.concat(word)
 
         const lineWidth = getWordWidthB(R.last(lines))
-        if (getWordWidthB(word) + lineWidth > maxLineWidth) {
+        if (getWordWidthB(word, true) + lineWidth > maxLineWidth) {
           const silables = hypher.hyphenate(word)
           const [ fittingSilablesWithHyphen, leftOverSilables ] =
             silablesFitIn(fontFamily, fontSize, silables, maxLineWidth - lineWidth)
